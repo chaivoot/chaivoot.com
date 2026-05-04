@@ -12,6 +12,6 @@ const onAbout = path === '/about' || path.startsWith('/about/');
   <div class="nav-links">
     <a href="/" class:list={['nav-link', { active: onHome }]}>บันทึก</a>
     <a href="/about" class:list={['nav-link', { active: onAbout }]}>เกี่ยวกับผม</a>
-    <a class="btn btn-line" href={SITE.lineUrl}>LINE</a>
+    <a class="btn btn-line" href={SITE.lineUrl} target="_blank" rel="noopener">LINE</a>
   </div>
 </nav>
