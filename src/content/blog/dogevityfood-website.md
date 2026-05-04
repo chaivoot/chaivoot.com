@@ -34,7 +34,7 @@ tags: ["dog-nutrition", "home-cooked", "dogevity", "health", "dashboard"]
 
 ปัญหาของการทำอาหารเองคือ "ความกังวลว่าน้องจะได้รับพลังงานไม่พอ หรือมากเกินไป" ผมเลยสร้าง Dashboard ขึ้นมาเป็นตัวช่วยครับ อย่างที่คุณเห็นในรูปด้านล่าง...
 
-![dogevity-dashboard.jpg](https://image.api.playfab.com/v1/api/CloudScript/4397F/GetCloudScriptRevision/GetCloudScriptRevision?RevisionType=Live)
+![หน้าจอ Dashboard ของมอมแมม](/dogevity-dashboard.jpg)
 
 **ภาพหน้าจอ Dashboard จริง: แสดงการติดตามน้ำหนักของ "มอมแมม" ที่ค่อยๆ ลดลงจนเกือบถึงเป้าหมาย 13 กก., ค่า RER/DER ที่คำนวณได้, และสถานะ BCS 5/9 (อุดมสมบูรณ์)**
 
