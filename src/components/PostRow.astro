@@ -30,7 +30,9 @@ const dotStyle = `background:${p.ink}`;
     )}
   </div>
   {isNote ? (
-    <p class="post-excerpt">{post.data.excerpt}</p>
+    <a class="row-link" href={href}>
+      <p class="post-excerpt">{post.data.excerpt}</p>
+    </a>
   ) : (
     <a class="row-link" href={href}>
       <h3 class="post-title">{post.data.title}</h3>
