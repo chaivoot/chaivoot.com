@@ -11,6 +11,7 @@ const blog = defineCollection({
     format:  z.enum(['note', 'article']),
     excerpt: z.string().optional(),
     tags:    z.array(z.string()).optional(),
+    read:    z.number().int().positive().optional(),
     draft:   z.boolean().default(false),
   }),
 });

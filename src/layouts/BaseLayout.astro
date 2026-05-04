@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { SITE } from '../lib/site';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
@@ -8,7 +9,7 @@ interface Props {
   title: string;
   description?: string;
 }
-const { title, description = 'บันทึกของชายวัย 50 กับหมา 1 ตัว ที่สนใจ Longevity และธุรกิจ Amway' } = Astro.props;
+const { title, description = SITE.description } = Astro.props;
 ---
 <!doctype html>
 <html lang="th">

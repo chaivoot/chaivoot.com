@@ -1,57 +1,67 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import PillarBadge from '../components/PillarBadge.astro';
+import AuthorCard from '../components/AuthorCard.astro';
+import LineCTA from '../components/LineCTA.astro';
+import PostRow from '../components/PostRow.astro';
 import { PILLARS } from '../lib/pillars';
+import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
-interface Props {
-  post: CollectionEntry<'blog'>;
-}
+interface Props { post: CollectionEntry<'blog'>; }
 const { post } = Astro.props;
-const pillar = PILLARS[post.data.pillar];
+const p = PILLARS[post.data.pillar];
 const dateStr = post.data.date.toLocaleDateString('th-TH', {
   year: 'numeric', month: 'short', day: 'numeric',
 });
+const isNote = post.data.format === 'note';
+const dotStyle = `background:${p.ink}`;
+const badgeStyle = isNote
+  ? `background:${p.wash};color:${p.deep}`
+  : `background:#F0EDE7;color:#6B6B6B`;
+
+const all = await getCollection('blog', ({ data }) => !data.draft);
+const related = all
+  .filter((r) => r.slug !== post.slug && r.data.pillar === post.data.pillar)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 2);
 ---
 <BaseLayout title={`${post.data.title} — chaivoot`} description={post.data.excerpt}>
-  <article class="post">
-    <header class="post-head">
-      <div class="post-meta">
-        <PillarBadge id={post.data.pillar} />
-        <span class="dot">·</span>
-        <time datetime={post.data.date.toISOString()}>{dateStr}</time>
-        <span class="dot">·</span>
-        <span class="kind">{post.data.format === 'note' ? 'Note' : 'Article'}</span>
-      </div>
-      <h1>{post.data.title}</h1>
-      {post.data.excerpt && <p class="post-excerpt">{post.data.excerpt}</p>}
-    </header>
-    <div class="post-body">
+  <a class="back-link" href="/">← กลับไปหน้าบันทึก</a>
+  <article class="post-detail fade-in">
+    <div class="post-meta">
+      <span class="badge" style={badgeStyle}>{isNote ? 'บันทึก' : 'บทความ'}</span>
+      <span class="meta-dot" style={dotStyle}></span>
+      <span>{p.name}</span>
+      <span class="sep">·</span>
+      <time datetime={post.data.date.toISOString()}>{dateStr}</time>
+      {post.data.read && (
+        <>
+          <span class="sep">·</span>
+          <span>อ่าน {post.data.read} นาที</span>
+        </>
+      )}
+    </div>
+    <h1>{post.data.title}</h1>
+    {post.data.excerpt && <p class="post-excerpt-lg">{post.data.excerpt}</p>}
+    <div class="body">
       <slot />
     </div>
     {post.data.tags && post.data.tags.length > 0 && (
-      <footer class="post-tags">
+      <div class="tags">
         {post.data.tags.map((t) => <span class="tag">#{t}</span>)}
-      </footer>
+      </div>
     )}
+    <AuthorCard />
   </article>
-</BaseLayout>
 
-<style>
-  .post { max-width: 640px; margin: 0 auto; padding: var(--s-7) var(--pad-x) var(--s-9); }
-  .post-head { margin-bottom: var(--s-7); }
-  .post-meta { display: flex; align-items: center; gap: var(--s-2); margin-bottom: var(--s-4); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--fg-muted); flex-wrap: wrap; }
-  .dot { color: var(--fg-faint); }
-  .post h1 { font-size: var(--fs-h1); margin: 0 0 var(--s-3); text-wrap: balance; }
-  .post-excerpt { font-size: var(--fs-lg); color: var(--fg-muted); line-height: var(--lh-loose); }
-  .post-body :global(p) { margin: 0 0 var(--s-5); }
-  .post-body :global(h2) { margin: var(--s-7) 0 var(--s-3); }
-  .post-body :global(h3) { margin: var(--s-6) 0 var(--s-2); }
-  .post-body :global(ul), .post-body :global(ol) { padding-left: 22px; margin-bottom: var(--s-5); }
-  .post-body :global(li) { margin-bottom: var(--s-2); }
-  .post-body :global(blockquote) { font-family: var(--font-serif); font-style: italic; border-left: 2px solid var(--fg); padding-left: var(--s-4); margin: var(--s-6) 0; color: var(--fg); }
-  .post-body :global(img) { max-width: 100%; border-radius: var(--r-md); margin: var(--s-6) 0; }
-  .post-body :global(code) { font-family: var(--font-mono); background: var(--bg-alt); padding: 2px 6px; border-radius: var(--r-sm); font-size: 0.92em; }
-  .post-tags { margin-top: var(--s-7); padding-top: var(--s-5); border-top: 1px solid var(--border); display: flex; gap: var(--s-2); flex-wrap: wrap; }
-  .tag { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--fg-muted); }
-</style>
+  {related.length > 0 && (
+    <>
+      <div class="related-h">บันทึกที่เกี่ยวข้อง</div>
+      <div class="related-list">
+        {related.map((r) => <PostRow post={r} />)}
+      </div>
+    </>
+  )}
+
+  <LineCTA />
+</BaseLayout>

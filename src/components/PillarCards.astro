@@ -1,0 +1,15 @@
+---
+import { PILLARS, PILLAR_ORDER } from '../lib/pillars';
+const items = PILLAR_ORDER.map((id) => PILLARS[id]);
+---
+<div class="pillars fade-in">
+  {items.map((p) => (
+    <a class="pillar-card" href={`/pillars/${p.id}`}>
+      <span class="pillar-stripe" style={`background:${p.ink}`}></span>
+      <div class="pillar-num">{p.num}</div>
+      <div class="pillar-name">{p.name}</div>
+      <div class="pillar-desc">{p.desc}</div>
+      <span class="pillar-more">อ่านบันทึก →</span>
+    </a>
+  ))}
+</div>

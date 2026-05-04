@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostCard from '../../components/PostCard.astro';
+import Feed from '../../components/Feed.astro';
+import LineCTA from '../../components/LineCTA.astro';
 import { PILLARS, PILLAR_ORDER, type PillarId } from '../../lib/pillars';
 
 export async function getStaticPaths() {
@@ -9,34 +10,29 @@ export async function getStaticPaths() {
 }
 
 const pillarId = Astro.params.pillar as PillarId;
-const pillar = PILLARS[pillarId];
+const p = PILLARS[pillarId];
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft && data.pillar === pillarId))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
-<BaseLayout title={`${pillar.name} — chaivoot`}>
-  <section class="pillar-head" data-pillar={pillarId}>
-    <p class="num">Pillar {pillar.num}</p>
-    <h1>{pillar.name}</h1>
-    <p class="long">{pillar.long}</p>
-  </section>
-  <section class="feed">
+<BaseLayout title={`${p.name} — chaivoot`} description={p.long}>
+  <div class="fade-in">
+    <div class="pillar-hero">
+      <div class="pillar-hero-num">
+        <span class="pillar-hero-stripe" style={`background:${p.ink}`}></span>{p.num}
+      </div>
+      <h1>{p.name}</h1>
+      <p>{p.long}</p>
+    </div>
     {posts.length === 0 ? (
       <p class="empty">ยังไม่มี post ใน pillar นี้</p>
     ) : (
-      posts.map((post) => <PostCard post={post} />)
+      <Feed posts={posts} fixedPillar={pillarId} />
     )}
-  </section>
+  </div>
+  <LineCTA />
 </BaseLayout>
 
 <style>
-  .pillar-head { max-width: var(--w-feed); margin: 0 auto; padding: var(--s-8) var(--pad-x) var(--s-6); border-bottom: 1px solid var(--border); }
-  .num { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--fg-muted); margin: 0 0 var(--s-2); letter-spacing: 0.04em; }
-  h1 { font-size: var(--fs-display); margin: 0 0 var(--s-4); letter-spacing: var(--tracking-tight); font-weight: var(--fw-med); }
-  .long { font-size: var(--fs-lg); color: var(--fg-muted); line-height: var(--lh-loose); max-width: 60ch; margin: 0; }
-  [data-pillar="amway"] .num { color: var(--p1-ink); }
-  [data-pillar="longevity"] .num { color: var(--p2-ink); }
-  [data-pillar="dogs"] .num { color: var(--p3-ink); }
-  .feed { max-width: var(--w-feed); margin: 0 auto; padding: var(--s-5) var(--pad-x) var(--s-9); }
-  .empty { color: var(--fg-muted); font-style: italic; }
+  .empty { max-width: var(--w-feed); margin: 0 auto; padding: var(--s-5) var(--pad-x); color: var(--fg-muted); font-style: italic; }
 </style>

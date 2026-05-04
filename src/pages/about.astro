@@ -1,31 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LineCTA from '../components/LineCTA.astro';
 ---
-<BaseLayout title="About — chaivoot">
-  <section class="about">
-    <h1>About</h1>
-    <p class="lede">ผมชื่อชัยวุฒิ. อายุ 50. เลี้ยงหมา 1 ตัว — มอมแมม. ทำธุรกิจ Amway และสนใจเรื่อง longevity</p>
-    <p>ที่นี่คือบันทึก ไม่ใช่ blog ให้คนอ่านเยอะๆ ไม่ใช่ portfolio ไม่ใช่ที่ขายของ. มันคือที่ที่ผมเก็บความคิดที่อยากจำไว้ — บางวันสั้น บางวันยาว</p>
-    <p>ถ้าอ่านแล้วได้ประโยชน์ — ดี. ถ้าไม่ได้ — ก็ไม่เป็นไร ผมเขียนให้ตัวเองในอนาคตด้วย</p>
-
-    <h2>3 เรื่องที่ผมเขียนถึง</h2>
-    <ul>
-      <li><strong>Amway</strong> — ไม่ใช่การชวนสมัคร แต่เป็นมุมมองของคนที่ทำมาหลายปี</li>
-      <li><strong>Longevity</strong> — วินัยเล็กๆ ที่ทำซ้ำทุกวัน</li>
-      <li><strong>หมา</strong> — choice-based training และโภชนาการ</li>
-    </ul>
-
-    <h2>ติดต่อ</h2>
-    <p>LINE: @chaivoot · Email: hi@chaivoot.com</p>
-  </section>
+<BaseLayout title="เกี่ยวกับผม — chaivoot">
+  <div class="about fade-in">
+    <img class="about-photo" src="/chaivoot-mommam.jpg" alt="ชัยวุฒิและมอมแมม" />
+    <h1>สวัสดีครับ ผมชัยวุฒิ</h1>
+    <p class="lead">ผู้ชายวัย 50 ที่ใช้เวลาส่วนใหญ่กับสามเรื่อง — ธุรกิจ Amway, longevity และมอมแมมหมาของผม</p>
+    <p>ผมเริ่มทำ Amway ตอนอายุ 48 — สิ้นเดือนนี้ครบ 2 ปีพอดี ไม่ใช่เพราะหวังรวยเร็ว แต่เพราะเชื่อว่าการมีรายได้หลายช่องทางคือสิ่งที่ทำให้ชีวิตมั่นคงในยุคที่ทุกอย่างเปลี่ยนเร็ว</p>
+    <p>เรื่อง longevity สนใจมานาน — ไม่ได้เพราะรู้สึกว่าร่างกายไม่เหมือนเดิม แต่เพราะอยากรักษามันไว้ไปนานๆ ตอนนี้อายุ 50 BMI ยังอยู่ที่ 22 — ไม่ใช่ฟลุก แค่ผลของวินัยเล็กๆ ที่ทำซ้ำทุกวัน</p>
+    <p>ส่วนมอมแมม — เธอเข้ามาในชีวิตผมตอนอายุ 48 และเปลี่ยนทุกอย่าง การฝึกเธอแบบ choice-based ทำให้ผมเข้าใจเรื่องความสัมพันธ์ลึกขึ้น ความจริงจังเรื่องอาหารหมาทำให้ผมเริ่ม dogevityfood.com</p>
+    <p>ที่นี่คือบ้านของความคิดผม — ทักมาคุยทาง LINE ได้เลยครับ</p>
+  </div>
+  <LineCTA />
 </BaseLayout>
-
-<style>
-  .about { max-width: var(--w-body); margin: 0 auto; padding: var(--s-8) var(--pad-x) var(--s-9); }
-  h1 { font-size: var(--fs-h1); margin: 0 0 var(--s-4); }
-  h2 { font-size: var(--fs-h2); margin: var(--s-7) 0 var(--s-3); }
-  p { margin: 0 0 var(--s-4); }
-  .lede { font-size: var(--fs-lg); color: var(--fg-muted); line-height: var(--lh-loose); margin-bottom: var(--s-6); }
-  ul { padding-left: 22px; }
-  li { margin-bottom: var(--s-2); }
-</style>

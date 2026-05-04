@@ -1,0 +1,46 @@
+---
+import PostRow from './PostRow.astro';
+import { PILLARS, PILLAR_ORDER, type PillarId } from '../lib/pillars';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  fixedPillar?: PillarId;
+}
+const { posts, fixedPillar } = Astro.props;
+---
+<div class="feed-wrap fade-in">
+  {!fixedPillar && (
+    <div class="filters" data-feed-filters>
+      <button type="button" class="pill on" data-filter="all">ทั้งหมด</button>
+      {PILLAR_ORDER.map((id) => (
+        <button type="button" class="pill" data-filter={id}>
+          <span class="dot" style={`background:${PILLARS[id].ink}`}></span>
+          {PILLARS[id].name}
+        </button>
+      ))}
+    </div>
+  )}
+  <div class="feed" data-feed>
+    {posts.map((post) => <PostRow post={post} />)}
+  </div>
+</div>
+
+{!fixedPillar && (
+  <script>
+    const root = document.querySelector('[data-feed-filters]');
+    const feed = document.querySelector('[data-feed]');
+    if (root && feed) {
+      root.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('[data-filter]') as HTMLElement | null;
+        if (!btn) return;
+        const filter = btn.dataset.filter!;
+        root.querySelectorAll('.pill').forEach((p) => p.classList.toggle('on', p === btn));
+        feed.querySelectorAll<HTMLElement>('.post-row').forEach((row) => {
+          const show = filter === 'all' || row.dataset.pillar === filter;
+          row.style.display = show ? '' : 'none';
+        });
+      });
+    }
+  </script>
+)}
