@@ -53,7 +53,7 @@ main { min-height: 70vh; }
 /* ----- HERO ----- */
 .hero {
   max-width: var(--w-feed); margin: 0 auto;
-  padding: var(--s-8) 0 var(--s-7);
+  padding: var(--s-8) var(--pad-x) var(--s-7);
 }
 .hero h1 {
   font-size: clamp(28px, 4vw, 36px);
@@ -264,7 +264,9 @@ main { min-height: 70vh; }
 
 /* ----- PILLAR PAGE ----- */
 .pillar-hero {
-  max-width: var(--w-feed); margin: var(--s-6) auto var(--s-7);
+  width: calc(100% - 2 * var(--pad-x));
+  max-width: var(--w-feed);
+  margin: var(--s-6) auto var(--s-7);
   padding: var(--s-7) var(--s-5);
   background: var(--bg-alt); border-radius: var(--r-lg);
 }
