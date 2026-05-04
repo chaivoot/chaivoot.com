@@ -26,21 +26,30 @@ const { posts, fixedPillar } = Astro.props;
   </div>
 </div>
 
-{!fixedPillar && (
-  <script>
-    const root = document.querySelector('[data-feed-filters]');
-    const feed = document.querySelector('[data-feed]');
-    if (root && feed) {
-      root.addEventListener('click', (e) => {
-        const btn = (e.target as HTMLElement).closest('[data-filter]') as HTMLElement | null;
-        if (!btn) return;
-        const filter = btn.dataset.filter!;
-        root.querySelectorAll('.pill').forEach((p) => p.classList.toggle('on', p === btn));
-        feed.querySelectorAll<HTMLElement>('.post-row').forEach((row) => {
-          const show = filter === 'all' || row.dataset.pillar === filter;
-          row.style.display = show ? '' : 'none';
-        });
+<script>
+  function initFeedFilter() {
+    const root = document.querySelector<HTMLElement>('[data-feed-filters]');
+    const feed = document.querySelector<HTMLElement>('[data-feed]');
+    if (!root || !feed) return;
+    root.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const btn = target.closest<HTMLElement>('[data-filter]');
+      if (!btn) return;
+      const filter = btn.dataset.filter;
+      if (!filter) return;
+      root.querySelectorAll<HTMLElement>('.pill').forEach((p) => {
+        p.classList.toggle('on', p === btn);
       });
-    }
-  </script>
-)}
+      feed.querySelectorAll<HTMLElement>('.post-row').forEach((row) => {
+        const show = filter === 'all' || row.dataset.pillar === filter;
+        row.style.display = show ? '' : 'none';
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFeedFilter);
+  } else {
+    initFeedFilter();
+  }
+</script>
