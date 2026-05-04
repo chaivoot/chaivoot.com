@@ -1,0 +1,25 @@
+---
+const path = Astro.url.pathname;
+const isActive = (p: string) => path === p || path.startsWith(p + '/');
+---
+<nav class="nav">
+  <a href="/" class="brand">
+    <img src="/logo-mark-light.svg" alt="" width="24" height="24" />
+    <span>chaivoot</span>
+  </a>
+  <div class="nav-links">
+    <a href="/pillars/amway" class:list={['nav-link', { active: isActive('/pillars/amway') }]}>Amway</a>
+    <a href="/pillars/longevity" class:list={['nav-link', { active: isActive('/pillars/longevity') }]}>Longevity</a>
+    <a href="/pillars/dogs" class:list={['nav-link', { active: isActive('/pillars/dogs') }]}>หมา</a>
+    <a href="/about" class:list={['nav-link', { active: isActive('/about') }]}>About</a>
+  </div>
+</nav>
+
+<style>
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: var(--s-4) var(--pad-x); border-bottom: 1px solid var(--border-faint); background: var(--bg); }
+  .brand { display: flex; align-items: center; gap: var(--s-2); text-decoration: none; color: var(--fg); font-weight: var(--fw-med); letter-spacing: var(--tracking-tight); }
+  .nav-links { display: flex; gap: var(--s-5); }
+  .nav-link { font-size: var(--fs-md); color: var(--fg-muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+  .nav-link:hover { color: var(--fg); }
+  .nav-link.active { color: var(--fg); border-bottom-color: var(--fg); }
+</style>

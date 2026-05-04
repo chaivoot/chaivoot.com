@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="About — chaivoot">
+  <section class="about">
+    <h1>About</h1>
+    <p class="lede">ผมชื่อชัยวุฒิ. อายุ 50. เลี้ยงหมา 1 ตัว — มอมแมม. ทำธุรกิจ Amway และสนใจเรื่อง longevity</p>
+    <p>ที่นี่คือบันทึก ไม่ใช่ blog ให้คนอ่านเยอะๆ ไม่ใช่ portfolio ไม่ใช่ที่ขายของ. มันคือที่ที่ผมเก็บความคิดที่อยากจำไว้ — บางวันสั้น บางวันยาว</p>
+    <p>ถ้าอ่านแล้วได้ประโยชน์ — ดี. ถ้าไม่ได้ — ก็ไม่เป็นไร ผมเขียนให้ตัวเองในอนาคตด้วย</p>
+
+    <h2>3 เรื่องที่ผมเขียนถึง</h2>
+    <ul>
+      <li><strong>Amway</strong> — ไม่ใช่การชวนสมัคร แต่เป็นมุมมองของคนที่ทำมาหลายปี</li>
+      <li><strong>Longevity</strong> — วินัยเล็กๆ ที่ทำซ้ำทุกวัน</li>
+      <li><strong>หมา</strong> — choice-based training และโภชนาการ</li>
+    </ul>
+
+    <h2>ติดต่อ</h2>
+    <p>LINE: @chaivoot · Email: hi@chaivoot.com</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .about { max-width: var(--w-body); margin: 0 auto; padding: var(--s-8) var(--pad-x) var(--s-9); }
+  h1 { font-size: var(--fs-h1); margin: 0 0 var(--s-4); }
+  h2 { font-size: var(--fs-h2); margin: var(--s-7) 0 var(--s-3); }
+  p { margin: 0 0 var(--s-4); }
+  .lede { font-size: var(--fs-lg); color: var(--fg-muted); line-height: var(--lh-loose); margin-bottom: var(--s-6); }
+  ul { padding-left: 22px; }
+  li { margin-bottom: var(--s-2); }
+</style>

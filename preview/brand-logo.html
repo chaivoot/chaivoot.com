@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Logo</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{
+    margin:0;
+    padding:32px;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:var(--font-sans);
+  }
+  .head{
+    font-size:var(--fs-xxs);
+    letter-spacing:var(--tracking-eyebrow);
+    text-transform:uppercase;
+    color:var(--fg-faint);
+    margin-bottom:14px;
+  }
+  .row{
+    display:flex; gap:32px; align-items:flex-end;
+    padding: 24px 0;
+    border-top: 1px solid var(--border-faint);
+  }
+  .row:first-of-type{border-top:none}
+  .item{ display:flex; flex-direction:column; gap:8px; align-items:center }
+  .item .label{
+    font-family:var(--font-mono); font-size:11px; color:var(--fg-faint);
+  }
+  .swatch{
+    display:flex; align-items:center; justify-content:center;
+    border-radius: 8px;
+  }
+  .on-dark{ background:#111; padding:18px }
+  .on-light{ background:#FAFAF8; padding:18px; border:1px solid var(--border) }
+  .on-paper{ background:var(--bg-alt); padding:18px; border:1px solid var(--border) }
+
+  /* In-place demo: actual nav with the mark */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 22px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+    margin-top: 22px;
+  }
+  .brand{ display:flex; align-items:center; gap:10px }
+  .brand .word{ font-size:18px; font-weight:500; letter-spacing:-0.01em }
+  .links{ display:flex; gap:22px; font-size:14px; color:var(--fg-muted) }
+  .links a{ color:inherit; text-decoration:none }
+</style>
+</head>
+<body>
+
+<div class="head">Source — original 59×35</div>
+<div class="row">
+  <div class="item">
+    <div class="swatch on-dark" style="padding:6px">
+      <img src="../uploads/539969.jpg" alt="" width="118" height="70" style="image-rendering:pixelated;display:block"/>
+    </div>
+    <div class="label">user-supplied bitmap (2× zoom)</div>
+  </div>
+  <div class="item" style="font-size:13px;color:var(--fg-muted);max-width:360px;line-height:1.7">
+    Redrawn as SVG so it stays sharp at every scale and inherits color from CSS via <code style="font-family:var(--font-mono);font-size:12px">currentColor</code>.
+  </div>
+</div>
+
+<div class="head" style="margin-top:32px">Mark — three surfaces</div>
+<div class="row">
+  <div class="item">
+    <div class="swatch on-dark"><img src="../assets/logo-mark-dark.svg" alt="" width="64" height="64"/></div>
+    <div class="label">on dark</div>
+  </div>
+  <div class="item">
+    <div class="swatch on-light"><img src="../assets/logo-mark-light.svg" alt="" width="64" height="64"/></div>
+    <div class="label">on light</div>
+  </div>
+  <div class="item">
+    <div class="swatch on-paper"><img src="../assets/logo-mark-light.svg" alt="" width="64" height="64"/></div>
+    <div class="label">on paper bg</div>
+  </div>
+</div>
+
+<div class="head" style="margin-top:32px">Scale test</div>
+<div class="row">
+  <div class="item">
+    <div class="swatch on-dark" style="padding:8px"><img src="../assets/logo-mark-dark.svg" alt="" width="20" height="20"/></div>
+    <div class="label">20px (favicon)</div>
+  </div>
+  <div class="item">
+    <div class="swatch on-dark" style="padding:10px"><img src="../assets/logo-mark-dark.svg" alt="" width="32" height="32"/></div>
+    <div class="label">32px (nav)</div>
+  </div>
+  <div class="item">
+    <div class="swatch on-dark" style="padding:14px"><img src="../assets/logo-mark-dark.svg" alt="" width="56" height="56"/></div>
+    <div class="label">56px (footer)</div>
+  </div>
+  <div class="item">
+    <div class="swatch on-dark" style="padding:20px"><img src="../assets/logo-mark-dark.svg" alt="" width="120" height="120"/></div>
+    <div class="label">120px</div>
+  </div>
+</div>
+
+<div class="head" style="margin-top:32px">In context — site nav</div>
+<div class="nav">
+  <div class="brand">
+    <img src="../assets/logo-mark-light.svg" alt="" width="28" height="28"/>
+    <span class="word">chaivoot</span>
+  </div>
+  <div class="links">
+    <a>บันทึก</a><a>เกี่ยวกับผม</a><a>ติดต่อ</a>
+  </div>
+</div>
+
+<div class="nav" style="background:#111;color:#fff;border-color:transparent">
+  <div class="brand">
+    <img src="../assets/logo-mark-dark.svg" alt="" width="28" height="28"/>
+    <span class="word">chaivoot</span>
+  </div>
+  <div class="links" style="color:#FAFAF8">
+    <a>บันทึก</a><a>เกี่ยวกับผม</a><a>ติดต่อ</a>
+  </div>
+</div>
+
+</body>
+</html>

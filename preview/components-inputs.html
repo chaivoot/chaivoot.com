@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:24px;background:#fff;font-family:var(--font-sans);color:var(--fg)}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .label{font-size:12px;font-weight:500;color:#111}
+  .input,.textarea{font-family:var(--font-sans);font-size:14px;padding:11px 13px;border:1px solid #E8E6E1;border-radius:10px;background:#fff;color:#111;outline:none;width:100%}
+  .input:focus,.textarea:focus{border-color:#111}
+  .input::placeholder{color:#9A9A9A}
+  .textarea{min-height:80px;resize:vertical}
+  .help{font-size:11px;color:#9A9A9A}
+</style></head><body>
+<div class="field">
+  <label class="label">ชื่อ</label>
+  <input class="input" placeholder="ใส่ชื่อของคุณ"/>
+</div>
+<div class="field">
+  <label class="label">อยากคุยเรื่องอะไร</label>
+  <textarea class="textarea" placeholder="พิมพ์ได้เลยครับ — หรือเว้นว่างก็ได้"></textarea>
+  <div class="help">ผมอ่านทุกข้อความ ตอบเอง ไม่มี auto-reply</div>
+</div>
+</body></html>

@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Astro คืออะไร — chaivoot walkthrough</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body {
+    margin: 0;
+    background: var(--bg-alt);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px 120px; }
+  .topnav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(247,246,242,0.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .topnav-inner {
+    max-width: 760px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 24px;
+  }
+  .topnav img { display: block; }
+  .topnav-title { font-weight: 500; letter-spacing: var(--tracking-tight); font-size: 15px; }
+  .topnav-crumb { color: var(--fg-muted); font-size: 13px; margin-left: auto; }
+
+  /* Hero */
+  .hero { padding: 24px 0 56px; }
+  .eyebrow {
+    color: var(--fg-muted);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h1 {
+    font-size: var(--fs-display);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.15;
+    margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 19px;
+    color: var(--fg-muted);
+    line-height: 1.6;
+    margin: 0 0 32px;
+    text-wrap: pretty;
+    max-width: 60ch;
+  }
+
+  /* Sections */
+  section { margin: 56px 0; }
+  h2 {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.25;
+    margin: 0 0 16px;
+  }
+  h3 {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    margin: 32px 0 12px;
+  }
+  p { margin: 0 0 16px; max-width: 64ch; text-wrap: pretty; }
+  p strong { font-weight: 600; }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 56px 0;
+  }
+
+  /* Section header marker */
+  .sec-num {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-faint);
+    margin-right: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Callouts */
+  .callout {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--fg);
+    padding: 18px 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin-bottom: 6px;
+  }
+
+  /* Code blocks */
+  .code {
+    background: #1A1A1A;
+    color: #FAFAF8;
+    border-radius: 6px;
+    padding: 18px 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-x: auto;
+    margin: 16px 0;
+    white-space: pre;
+  }
+  .code .c { color: #6E7E6E; }      /* comment */
+  .code .k { color: #C9A06A; }      /* keyword */
+  .code .s { color: #A8C09A; }      /* string */
+  .code .t { color: #B098C9; }      /* tag */
+  .code .a { color: #D8B080; }      /* attr */
+  .code .m { color: #C9A06A; font-style: italic; }  /* meta */
+  .code .v { color: #FAFAF8; }      /* variable */
+  .code-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-faint);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Side-by-side */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .compare .col h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    letter-spacing: var(--tracking-tight);
+  }
+  .compare .col h4 .badge {
+    display: inline-block; font-size: 10px; padding: 2px 6px;
+    border-radius: 3px; margin-left: 6px; vertical-align: 2px;
+    font-weight: 500; letter-spacing: 0.04em;
+  }
+  .badge.next { background: var(--p1-wash); color: var(--p1-deep); }
+  .badge.astro { background: var(--p2-wash); color: var(--p2-deep); }
+  .compare .code { margin: 0; min-height: 100%; }
+
+  /* Tree */
+  .tree {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.85;
+    margin: 16px 0;
+    color: var(--fg);
+  }
+  .tree .dim { color: var(--fg-faint); }
+  .tree .hi { color: var(--fg); font-weight: 500; }
+  .tree .note { color: var(--p2-deep); }
+
+  /* Flow diagram */
+  .flow {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 24px;
+    margin: 24px 0;
+  }
+  .flow-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 12px;
+  }
+  .flow-step {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 12px;
+    font-size: 12px;
+    line-height: 1.45;
+    text-align: center;
+    position: relative;
+  }
+  .flow-step .num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg-faint);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .flow-step strong { display: block; font-weight: 500; margin-bottom: 4px; font-size: 13px; }
+  .flow-step .meta { color: var(--fg-muted); font-size: 11px; }
+  .flow-arrow {
+    text-align: center;
+    color: var(--fg-faint);
+    font-size: 18px;
+    margin: 4px 0;
+  }
+  .flow-step.touch { border-color: var(--p3-ink); background: var(--p3-wash); }
+  .flow-step.auto { background: #1A1A1A; color: var(--fg-on-dark); border-color: #1A1A1A; }
+  .flow-step.auto .num { color: rgba(255,255,255,0.4); }
+  .flow-step.auto .meta { color: rgba(255,255,255,0.6); }
+
+  /* Lists */
+  ul, ol { padding-left: 22px; margin: 0 0 16px; max-width: 64ch; }
+  li { margin-bottom: 6px; }
+  li strong { font-weight: 600; }
+
+  /* Tabs (toggle) */
+  .tabs {
+    display: flex; gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+  .tab {
+    border: 0;
+    background: transparent;
+    padding: 10px 14px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--fg-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .tab.active { color: var(--fg); border-color: var(--fg); font-weight: 500; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Mini table for tradeoffs */
+  table.cmp {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  table.cmp th, table.cmp td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.cmp th {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--fg-muted); font-weight: 500;
+    border-bottom-color: var(--border-strong);
+  }
+  table.cmp td.col-a { color: var(--fg-muted); }
+  table.cmp td.col-b { color: var(--fg); font-weight: 500; }
+
+  /* Answer chips */
+  .qa-strip {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .qa-strip dt {
+    font-weight: 500; margin-top: 12px; font-size: 14px;
+  }
+  .qa-strip dt:first-of-type { margin-top: 0; }
+  .qa-strip dd {
+    margin: 4px 0 0; color: var(--fg-muted); font-size: 14px;
+    max-width: 60ch;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 32px 0 0;
+  }
+  .toc-label {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--fg-muted); margin-bottom: 10px; font-weight: 600;
+  }
+  .toc ol { margin: 0; padding-left: 22px; counter-reset: toc; list-style: none; }
+  .toc li { margin-bottom: 6px; counter-increment: toc; position: relative; }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--fg-faint);
+    position: absolute; left: -22px;
+  }
+  .toc a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
+  .toc a:hover { border-color: var(--fg); }
+
+  /* Footer */
+  .endcap {
+    margin-top: 80px;
+    padding: 32px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .endcap h2 { font-size: 24px; margin: 0 0 8px; }
+  .endcap p { margin: 0 auto 0; color: var(--fg-muted); max-width: 50ch; }
+  .endcap-cta {
+    display: inline-block;
+    margin-top: 18px;
+    background: var(--fg);
+    color: var(--fg-on-dark);
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .compare { grid-template-columns: 1fr; }
+    .flow-row { grid-template-columns: 1fr 1fr; }
+    h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="topnav-inner">
+    <img src="../assets/logo-mark-light.svg" alt="" width="22" height="22"/>
+    <span class="topnav-title">chaivoot</span>
+    <span class="topnav-crumb">design system / walkthrough</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Walkthrough · 12 min read</p>
+  <h1>Astro คืออะไร — และทำไมเหมาะกับ chaivoot.com</h1>
+  <p class="lede">เอกสารฉบับนี้พา walk-through ทุกแนวคิดที่ต้องเข้าใจก่อนจะให้ Claude Code ลงมือ scaffold โปรเจกต์จริง อ่านจบจะรู้ว่าโครงสร้างหน้าตาเป็นยังไง, การเขียน post ทำอะไรบ้าง, และ deploy เป็น chaivoot.com ขึ้น Vercel ได้ยังไง — ทั้งหมดนี้เลี่ยง command line ได้เกือบ 100% หลัง setup</p>
+
+  <div class="toc">
+    <div class="toc-label">สารบัญ</div>
+    <ol>
+      <li><a href="#why">ทำไมต้อง Astro (ไม่ใช่ Next.js / WordPress)</a></li>
+      <li><a href="#mental">โมเดลความคิด: HTML-first, Islands</a></li>
+      <li><a href="#folder">โครงสร้าง folder ของจริง</a></li>
+      <li><a href="#astro-syntax">.astro file ทำงานยังไง</a></li>
+      <li><a href="#content">Content Collections — หัวใจของ blog</a></li>
+      <li><a href="#post">เขียน post 1 อัน — ตั้งแต่ต้นจนจบ</a></li>
+      <li><a href="#publish">Publish workflow (ไม่แตะ command line)</a></li>
+      <li><a href="#deploy">Deploy ขึ้น Vercel</a></li>
+      <li><a href="#next">ขั้นต่อไป — ส่งให้ Claude Code</a></li>
+    </ol>
+  </div>
+</header>
+
+<hr/>
+
+<!-- ==================== 01 ==================== -->
+<section id="why">
+  <h2><span class="sec-num">01</span>ทำไมต้อง Astro</h2>
+
+  <p>คุณเคยลอง <strong>Next.js</strong> มาแล้วในโปรเจกต์ <em>dogevityfood.com</em> และคงรู้สึกว่ามันทำได้ทุกอย่าง — แต่ก็ overhead เยอะ. Astro ออกแบบมาเพื่อ <strong>"เว็บที่ content เป็นพระเอก"</strong> — blog, docs, marketing site, digital garden. ทุกอย่างที่ Next.js ทำได้แต่หนักเกิน, Astro ทำเบาๆ</p>
+
+  <table class="cmp">
+    <thead>
+      <tr><th>ประเด็น</th><th>Next.js</th><th>Astro</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ออกแบบมาเพื่อ</td><td class="col-a">App + content ผสมกัน</td><td class="col-b">Content-first sites</td></tr>
+      <tr><td>JavaScript ที่ส่งไป browser</td><td class="col-a">~80–100 KB ขั้นต่ำ</td><td class="col-b">0 KB (ถ้าไม่ใช้ interactive)</td></tr>
+      <tr><td>เวลา build</td><td class="col-a">30–60 วินาที</td><td class="col-b">5–15 วินาที</td></tr>
+      <tr><td>เขียน post</td><td class="col-a">ต้อง parse markdown เอง<br/>(~150 บรรทัด setup)</td><td class="col-b"><code>getCollection('blog')</code><br/>(~5 บรรทัด)</td></tr>
+      <tr><td>หน้า routing</td><td class="col-a">file-based</td><td class="col-b">file-based (เหมือนกัน)</td></tr>
+      <tr><td>ใช้ React component</td><td class="col-a">ได้ (default)</td><td class="col-b">ได้ (เลือกได้)</td></tr>
+      <tr><td>Deploy บน Vercel</td><td class="col-a">ได้</td><td class="col-b">ได้ (เหมือนกัน)</td></tr>
+    </tbody>
+  </table>
+
+  <p>สำหรับ chaivoot ซึ่งจะเป็น <strong>บันทึก + บทความ ที่ไม่มี login, ไม่มี cart, ไม่มี realtime</strong> — Astro เลือกง่ายมาก</p>
+
+  <div class="callout">
+    <div class="callout-label">เทียบ WordPress สั้นๆ</div>
+    <p>WordPress ต้องมี database (MySQL), ต้อง host แบบ dynamic, ต้อง update ตลอดเพราะ security. Astro ไม่มี database — post คือไฟล์ <code>.md</code> ใน Git. ปลอดภัยกว่า, เร็วกว่า, ฟรี hosting, แต่แลกกับการเขียน post ผ่าน editor แทน admin panel</p>
+  </div>
+</section>
+
+<!-- ==================== 02 ==================== -->
+<section id="mental">
+  <h2><span class="sec-num">02</span>โมเดลความคิด — HTML-first, Islands</h2>
+
+  <p>ต่างจาก Next.js ที่ "เริ่มจาก React component แล้วค่อย render เป็น HTML" — Astro <strong>เริ่มจาก HTML แล้วค่อยเติม JS เฉพาะจุดที่ต้องการ</strong>. แต่ละจุด interactive เรียกว่า <em>Island</em></p>
+
+  <div class="callout">
+    <div class="callout-label">analogy</div>
+    <p>นึกภาพเว็บเป็น <strong>หน้ากระดาษ</strong>. Next.js คือกระดาษทั้งหน้าเป็น "app" — ต้อง boot React ขึ้นมา hydrate ทุกอย่าง. Astro คือกระดาษ static + มี <strong>"เกาะ" interactive เล็กๆ</strong> ลอยอยู่บนกระดาษ — เกาะไหนต้องการ JS ก็ ship JS แค่เกาะนั้น เกาะที่เหลือเป็น HTML pure</p>
+  </div>
+
+  <p>ผลลัพธ์: หน้า blog 1 หน้า (text ล้วน + รูป) → ส่ง <strong>0 KB JavaScript</strong>. ถ้ามี search box ที่ติด React → ส่ง JS เฉพาะของ search box. ถ้ามี comment section → ส่ง JS เฉพาะ comment</p>
+
+  <h3>สิ่งที่ chaivoot จะใช้ (และไม่ใช้)</h3>
+  <ul>
+    <li><strong>ใช้:</strong> Astro pages (.astro), Markdown สำหรับ post, CSS ของเรา (port จาก <code>colors_and_type.css</code>), Vercel deploy</li>
+    <li><strong>ไม่ใช้ตอนเริ่มต้น:</strong> React, Vue, Svelte, Tailwind, MDX, image optimization plugins. เริ่มเรียบๆ ก่อน เพิ่มทีหลังได้ทุกเมื่อ</li>
+  </ul>
+</section>
+
+<!-- ==================== 03 ==================== -->
+<section id="folder">
+  <h2><span class="sec-num">03</span>โครงสร้าง folder</h2>
+
+  <p>นี่คือ folder ที่ Claude Code จะ generate ให้คุณ. โครงสร้างนี้ <strong>ทุกอย่างที่คุณเห็นจะอยู่ใน GitHub</strong> และ Vercel จะอ่านจาก GitHub เพื่อ build site</p>
+
+  <div class="tree">
+chaivoot.com/
+├── <span class="hi">src/</span>
+│   ├── <span class="hi">pages/</span>          <span class="dim">← แต่ละไฟล์ = 1 หน้าของเว็บ</span>
+│   │   ├── index.astro       <span class="dim">→ chaivoot.com/</span>
+│   │   ├── about.astro       <span class="dim">→ chaivoot.com/about</span>
+│   │   ├── pillars/
+│   │   │   ├── amway.astro      <span class="dim">→ /pillars/amway</span>
+│   │   │   ├── longevity.astro  <span class="dim">→ /pillars/longevity</span>
+│   │   │   └── dogs.astro       <span class="dim">→ /pillars/dogs</span>
+│   │   └── blog/
+│   │       └── [slug].astro  <span class="note">← template สำหรับ post ทุกอัน</span>
+│   │
+│   ├── <span class="hi">content/</span>        <span class="dim">← post ทั้งหมดอยู่ที่นี่</span>
+│   │   ├── config.ts         <span class="dim">← schema ของ post</span>
+│   │   └── blog/
+│   │       ├── 2026-02-05-barf-diet.md
+│   │       ├── 2026-02-12-amway-12-week.md
+│   │       └── ...
+│   │
+│   ├── <span class="hi">layouts/</span>        <span class="dim">← shell + nav + footer</span>
+│   │   ├── BaseLayout.astro
+│   │   └── PostLayout.astro
+│   │
+│   ├── <span class="hi">components/</span>     <span class="dim">← ชิ้นส่วน reuse</span>
+│   │   ├── Nav.astro
+│   │   ├── PillarBadge.astro
+│   │   └── PostCard.astro
+│   │
+│   └── <span class="hi">styles/</span>
+│       └── tokens.css        <span class="dim">← ของจาก design system</span>
+│
+├── <span class="hi">public/</span>             <span class="dim">← ไฟล์ static (รูป, favicon)</span>
+│   ├── favicon.svg
+│   └── photos/
+│       └── chaivoot-portrait.jpg
+│
+├── package.json              <span class="dim">← dependencies</span>
+├── astro.config.mjs          <span class="dim">← Astro settings</span>
+└── README.md
+  </div>
+
+  <p>สิ่งที่คุณจะแตะบ่อย <strong>มี 1 folder</strong>:</p>
+  <ul>
+    <li><strong><code>src/content/blog/</code></strong> — เพิ่ม <code>.md</code> ใหม่ = post ใหม่. นี่คือ 90% ของงาน</li>
+  </ul>
+  <p>ส่วน folder อื่นๆ เป็น <strong>โครงเว็บ</strong> ที่ตั้งครั้งเดียวจบ — แตะแค่ตอนปรับ design</p>
+</section>
+
+<!-- ==================== 04 ==================== -->
+<section id="astro-syntax">
+  <h2><span class="sec-num">04</span>.astro file ทำงานยังไง</h2>
+
+  <p>ไฟล์ <code>.astro</code> มี 2 ส่วน คั่นด้วย <code>---</code>:</p>
+
+  <ul>
+    <li><strong>ด้านบน (frontmatter):</strong> JS / TS — ดึงข้อมูล, import component, prepare ตัวแปร</li>
+    <li><strong>ด้านล่าง:</strong> HTML + เสียบตัวแปรด้วย <code>{...}</code></li>
+  </ul>
+
+  <p>ลองดูตัวอย่างหน้า home ของ chaivoot:</p>
+
+  <div class="code-label">src/pages/index.astro</div>
+  <div class="code">---
+<span class="c">// ส่วนนี้ run ตอน build เท่านั้น — ไม่ส่งไป browser</span>
+<span class="k">import</span> { getCollection } <span class="k">from</span> <span class="s">'astro:content'</span>;
+<span class="k">import</span> BaseLayout <span class="k">from</span> <span class="s">'../layouts/BaseLayout.astro'</span>;
+<span class="k">import</span> PostCard <span class="k">from</span> <span class="s">'../components/PostCard.astro'</span>;
+
+<span class="k">const</span> posts = <span class="k">await</span> getCollection(<span class="s">'blog'</span>);
+<span class="k">const</span> recent = posts
+  .sort((a, b) =&gt; b.data.date - a.data.date)
+  .slice(0, <span class="m">12</span>);
+---
+
+<span class="t">&lt;BaseLayout</span> <span class="a">title</span>=<span class="s">"chaivoot — บันทึก"</span><span class="t">&gt;</span>
+  <span class="t">&lt;section</span> <span class="a">class</span>=<span class="s">"hero"</span><span class="t">&gt;</span>
+    <span class="t">&lt;h1&gt;</span>บันทึกของชายวัย 50 กับหมา 1 ตัว<span class="t">&lt;/h1&gt;</span>
+    <span class="t">&lt;p&gt;</span>ที่สนใจ Longevity และธุรกิจ Amway<span class="t">&lt;/p&gt;</span>
+  <span class="t">&lt;/section&gt;</span>
+
+  <span class="t">&lt;section</span> <span class="a">class</span>=<span class="s">"feed"</span><span class="t">&gt;</span>
+    {recent.map((post) =&gt; (
+      <span class="t">&lt;PostCard</span> <span class="a">post</span>={post} <span class="t">/&gt;</span>
+    ))}
+  <span class="t">&lt;/section&gt;</span>
+<span class="t">&lt;/BaseLayout&gt;</span></div>
+
+  <p>สังเกต 3 อย่าง:</p>
+  <ol>
+    <li><strong>Frontmatter (ระหว่าง <code>---</code>)</strong> เขียน JavaScript ได้ตามใจ. <code>await</code> ก็ได้ — เพราะ run ตอน build เท่านั้น</li>
+    <li><strong>HTML</strong> เขียนเหมือน HTML ปกติ. <code>&lt;BaseLayout&gt;</code> และ <code>&lt;PostCard&gt;</code> คือ component (เริ่มต้นด้วยตัวพิมพ์ใหญ่)</li>
+    <li><strong>{...}</strong> เสียบ JS expression. JSX ผู้ใช้ React จะคุ้น — เกือบเหมือนกัน</li>
+  </ol>
+
+  <p>นั่นคือทั้งภาษา. <strong>ไม่มี hooks, ไม่มี state, ไม่มี client/server boundary</strong>. มันแค่ template engine ที่เขียน JS ในส่วน data-prep ได้</p>
+</section>
+
+<!-- ==================== 05 ==================== -->
+<section id="content">
+  <h2><span class="sec-num">05</span>Content Collections — หัวใจของ blog</h2>
+
+  <p>นี่คือ feature ที่ทำให้ Astro โดดเด่นเหนือ Next.js สำหรับ blog. <strong>Content Collection</strong> คือ folder ของไฟล์ <code>.md</code> ที่ Astro รู้จักและ index ให้อัตโนมัติ พร้อม type-check schema ของแต่ละ post</p>
+
+  <h3>ขั้นตอน 1 — กำหนด schema</h3>
+  <p>บอก Astro ว่า post แต่ละอันต้องมี field อะไรบ้าง:</p>
+
+  <div class="code-label">src/content/config.ts</div>
+  <div class="code"><span class="k">import</span> { defineCollection, z } <span class="k">from</span> <span class="s">'astro:content'</span>;
+
+<span class="k">const</span> blog = defineCollection({
+  <span class="v">type</span>: <span class="s">'content'</span>,
+  <span class="v">schema</span>: z.object({
+    <span class="v">title</span>:    z.string(),
+    <span class="v">date</span>:     z.date(),
+    <span class="v">pillar</span>:   z.enum([<span class="s">'amway'</span>, <span class="s">'longevity'</span>, <span class="s">'dogs'</span>]),
+    <span class="v">format</span>:   z.enum([<span class="s">'note'</span>, <span class="s">'article'</span>]),
+    <span class="v">excerpt</span>:  z.string().optional(),
+    <span class="v">draft</span>:    z.boolean().default(<span class="m">false</span>),
+  }),
+});
+
+<span class="k">export const</span> collections = { blog };</div>
+
+  <p>นี่คือ <strong>contract</strong> — Astro จะร้องเอ็ดถ้าคุณเขียน post ขาด field. มันคือ guard rail ที่ป้องกันคุณ ship post พังโดยไม่รู้ตัว</p>
+
+  <h3>ขั้นตอน 2 — เขียน post</h3>
+  <p>สร้างไฟล์ใน <code>src/content/blog/</code>:</p>
+
+  <div class="code-label">src/content/blog/2026-02-05-barf-diet.md</div>
+  <div class="code"><span class="m">---</span>
+<span class="a">title</span>: <span class="s">"โภชนาการหมา: ทำไมผมเลือก BARF"</span>
+<span class="a">date</span>: <span class="s">2026-02-05</span>
+<span class="a">pillar</span>: <span class="s">dogs</span>
+<span class="a">format</span>: <span class="s">article</span>
+<span class="a">excerpt</span>: <span class="s">"หลังจาก 6 เดือนที่ทดลอง raw food, นี่คือสิ่งที่เปลี่ยน"</span>
+<span class="m">---</span>
+
+ตอนแรกผมก็ลังเล — มันดูยุ่งยาก แพง และต้องเก็บในตู้เย็น
+
+แต่หลัง 6 เดือนที่ทดลอง, มอมแมมมีอะไรเปลี่ยน:
+
+- ขนเงา ไม่มัน
+- น้ำหนักลง 800g
+- พลังงานสม่ำเสมอตลอดวัน
+
+## สูตรที่ผมใช้
+
+70% เนื้อ, 10% กระดูก, 10% เครื่องใน, 10% ผัก
+...</div>
+
+  <p>คุณเขียน <strong>markdown ปกติ</strong> ที่ใครก็เขียนเป็น (ใน Obsidian, VS Code, หรือ GitHub web editor). Astro รับ heading, list, link, image, code block ทั้งหมด</p>
+
+  <h3>ขั้นตอน 3 — แสดงในหน้าเว็บ</h3>
+  <p>หน้า <code>[slug].astro</code> ทำหน้าที่ render ทุก post เป็นหน้าเดี่ยว. คุณเขียนครั้งเดียว, ใช้กับ post ทุกอันในอนาคต:</p>
+
+  <div class="code-label">src/pages/blog/[slug].astro</div>
+  <div class="code">---
+<span class="k">import</span> { getCollection } <span class="k">from</span> <span class="s">'astro:content'</span>;
+<span class="k">import</span> PostLayout <span class="k">from</span> <span class="s">'../../layouts/PostLayout.astro'</span>;
+
+<span class="c">// บอก Astro ว่ามี post อะไรบ้าง — มันจะ build แต่ละ post เป็น HTML ของตัวเอง</span>
+<span class="k">export async function</span> getStaticPaths() {
+  <span class="k">const</span> posts = <span class="k">await</span> getCollection(<span class="s">'blog'</span>);
+  <span class="k">return</span> posts.map((post) =&gt; ({
+    <span class="v">params</span>: { <span class="v">slug</span>: post.slug },
+    <span class="v">props</span>:  { post },
+  }));
+}
+
+<span class="k">const</span> { post } = Astro.props;
+<span class="k">const</span> { Content } = <span class="k">await</span> post.render();
+---
+
+<span class="t">&lt;PostLayout</span> <span class="a">post</span>={post}<span class="t">&gt;</span>
+  <span class="t">&lt;Content </span><span class="t">/&gt;</span>     <span class="c">{/* ← markdown ที่ render เป็น HTML แล้ว */}</span>
+<span class="t">&lt;/PostLayout&gt;</span></div>
+
+  <p>เพิ่ม post ใหม่ → Astro detect <code>.md</code> ใหม่ → build หน้าใหม่ที่ <code>chaivoot.com/blog/[slug]</code> ให้อัตโนมัติ. <strong>คุณไม่ต้องแก้ไฟล์ <code>[slug].astro</code> อีกเลย</strong></p>
+</section>
+
+<!-- ==================== 06 ==================== -->
+<section id="post">
+  <h2><span class="sec-num">06</span>เขียน post 1 อัน — ตั้งแต่ต้นจนจบ</h2>
+
+  <p>สมมติคุณนั่งอยู่หน้าจอตอนนี้ อยากเขียน note เรื่องที่เพิ่งคิดได้. ลำดับเหตุการณ์มีแค่นี้:</p>
+
+  <div class="qa-strip">
+    <dl>
+      <dt>1. เปิด Obsidian (หรือ VS Code, หรือ github.com ใน browser)</dt>
+      <dd>เปิด folder <code>chaivoot.com/src/content/blog/</code></dd>
+
+      <dt>2. สร้างไฟล์ใหม่ — ตั้งชื่อตามวันที่</dt>
+      <dd><code>2026-02-15-line-vs-blog.md</code></dd>
+
+      <dt>3. กรอก frontmatter (5 บรรทัดบนสุด)</dt>
+      <dd>title, date, pillar, format, excerpt</dd>
+
+      <dt>4. เขียนเนื้อหา — markdown ปกติ</dt>
+      <dd>heading, paragraph, list, link, รูป (ใส่ <code>![alt](/photos/foo.jpg)</code> ก็ใช้ได้)</dd>
+
+      <dt>5. Save</dt>
+      <dd>ถ้าใช้ Obsidian + Git plugin — sync auto. ถ้า GitHub web — กด "Commit"</dd>
+
+      <dt>6. รอ 1–2 นาที</dt>
+      <dd>Vercel detect commit → build → live ที่ chaivoot.com</dd>
+    </dl>
+  </div>
+
+  <p>ไม่มี <code>npm run</code>. ไม่มี admin login. ไม่มี database backup. แค่ <strong>เขียน → save → push → live</strong></p>
+</section>
+
+<!-- ==================== 07 ==================== -->
+<section id="publish">
+  <h2><span class="sec-num">07</span>Publish workflow แบบเลี่ยง command line</h2>
+
+  <p>นี่คือสิ่งที่คุณบอกว่าสำคัญที่สุด. ผมเสนอ 3 ทางเลือก เรียงจาก "ง่ายที่สุด" → "control เยอะที่สุด":</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="t1">ทาง 1 · GitHub web</button>
+    <button class="tab" data-tab="t2">ทาง 2 · Obsidian + Git</button>
+    <button class="tab" data-tab="t3">ทาง 3 · GitHub Desktop</button>
+  </div>
+
+  <div id="t1" class="tab-panel active" style="border:1px solid var(--border); border-top:0; padding: 20px 22px; border-radius: 0 0 6px 6px;">
+    <p><strong>เปิด browser → github.com/chaivoot/chaivoot.com → src/content/blog → "Add file"</strong></p>
+    <ul>
+      <li>ไม่ต้อง install อะไร 0% — แค่มี browser</li>
+      <li>เขียน markdown ใน editor ของ GitHub โดยตรง</li>
+      <li>Preview tab โชว์ผลก่อน commit</li>
+      <li>กด "Commit" → 1 นาทีต่อมา live</li>
+      <li><strong>เหมาะถ้า:</strong> เขียน post ไม่บ่อย, ไม่อยาก install อะไรในเครื่อง</li>
+    </ul>
+    <div class="callout">
+      <div class="callout-label">ข้อเสีย</div>
+      <p>เขียน offline ไม่ได้, no version local, ถ้า internet หลุดเสีย draft ทิ้ง</p>
+    </div>
+  </div>
+
+  <div id="t2" class="tab-panel" style="border:1px solid var(--border); border-top:0; padding: 20px 22px; border-radius: 0 0 6px 6px;">
+    <p><strong>Obsidian app + community plugin "Git"</strong></p>
+    <ul>
+      <li>เปิด chaivoot.com folder ใน Obsidian — มันเป็น vault</li>
+      <li>เขียน post ใน editor ที่คุ้นเคย พร้อม preview, link ระหว่าง note, etc.</li>
+      <li>Git plugin auto-pull ตอนเปิด, auto-commit ตอน save, auto-push ทุก N นาที</li>
+      <li>Save ใน Obsidian = push GitHub = deploy Vercel</li>
+      <li><strong>เหมาะถ้า:</strong> เขียนบ่อย, ใช้ Obsidian อยู่แล้ว, อยากเขียน offline</li>
+    </ul>
+    <div class="callout">
+      <div class="callout-label">ตั้งครั้งแรก</div>
+      <p>ต้องตั้ง Git plugin (3–5 นาที) — Claude Code ช่วยได้. หลังจากนั้นเขียน 100% เหมือน note ปกติ</p>
+    </div>
+  </div>
+
+  <div id="t3" class="tab-panel" style="border:1px solid var(--border); border-top:0; padding: 20px 22px; border-radius: 0 0 6px 6px;">
+    <p><strong>GitHub Desktop (GUI app) + editor ที่ชอบ</strong></p>
+    <ul>
+      <li>Install GitHub Desktop — clone repo ลงเครื่อง</li>
+      <li>เขียนใน editor ใดก็ได้ (VS Code, Obsidian, even TextEdit)</li>
+      <li>เปิด GitHub Desktop → เห็น changes → กด "Commit" → กด "Push"</li>
+      <li>3 ปุ่ม, ไม่มี command line</li>
+      <li><strong>เหมาะถ้า:</strong> อยาก control commit message, review change ก่อน push</li>
+    </ul>
+  </div>
+
+  <p style="margin-top: 24px;"><strong>คำแนะนำของผม:</strong> เริ่ม <em>ทาง 1 (GitHub web)</em> ก่อน — 0 setup. ถ้าเริ่มเขียนบ่อยขึ้นค่อย upgrade เป็น Obsidian (ทาง 2)</p>
+</section>
+
+<!-- ==================== 08 ==================== -->
+<section id="deploy">
+  <h2><span class="sec-num">08</span>Deploy ขึ้น Vercel</h2>
+
+  <p>Setup ครั้งเดียว — Claude Code ทำให้. หลังจากนั้น auto ตลอด:</p>
+
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-step touch">
+        <span class="num">01 · YOU</span>
+        <strong>เขียน .md</strong>
+        <span class="meta">ใน editor</span>
+      </div>
+      <div class="flow-step touch">
+        <span class="num">02 · YOU</span>
+        <strong>Commit</strong>
+        <span class="meta">GitHub web / Desktop</span>
+      </div>
+      <div class="flow-step auto">
+        <span class="num">03 · AUTO</span>
+        <strong>GitHub webhook</strong>
+        <span class="meta">notify Vercel</span>
+      </div>
+      <div class="flow-step auto">
+        <span class="num">04 · AUTO</span>
+        <strong>Vercel build</strong>
+        <span class="meta">~30 วินาที</span>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-row" style="grid-template-columns: 1fr 1fr;">
+      <div class="flow-step auto">
+        <span class="num">05 · AUTO</span>
+        <strong>Deploy CDN ทั่วโลก</strong>
+        <span class="meta">edge servers</span>
+      </div>
+      <div class="flow-step auto" style="background: var(--p2-deep);">
+        <span class="num">06 · LIVE</span>
+        <strong>chaivoot.com</strong>
+        <span class="meta">post ใหม่ขึ้น</span>
+      </div>
+    </div>
+  </div>
+
+  <p>ส่วนที่คุณแตะ = สีน้ำตาล (2 step). ที่เหลือ Vercel ทำเอง</p>
+
+  <div class="callout">
+    <div class="callout-label">Preview deployment (โบนัส)</div>
+    <p>ทุก commit ที่ไม่ใช่ <code>main</code> branch — Vercel สร้าง <strong>preview URL ลับ</strong> ให้ดูก่อน. เช่น <code>chaivoot-com-git-draft-amway-post.vercel.app</code>. คุณเปิดดูจาก phone ก่อน merge → ค่อย publish จริง</p>
+  </div>
+</section>
+
+<!-- ==================== 09 ==================== -->
+<section id="next">
+  <h2><span class="sec-num">09</span>ขั้นต่อไป — ส่งให้ Claude Code</h2>
+
+  <p>ถึงตรงนี้คุณรู้ภาพ Astro ทั้งหมดแล้ว. ขั้นต่อไปผมจะสร้าง <strong>scaffold blueprint</strong> + <strong>HANDOFF.md</strong> ในโปรเจกต์นี้ ที่ Claude Code อ่านแล้ว execute ต่อได้เลย</p>
+
+  <p>สิ่งที่ผมจะส่งให้ Claude Code:</p>
+
+  <ol>
+    <li><strong>Scaffold blueprint folder</strong> — sample <code>.astro</code>, <code>.md</code>, <code>config.ts</code> ที่ port design system แล้ว. Claude Code copy เข้า Astro project ใหม่ได้เลย</li>
+    <li><strong>HANDOFF.md</strong> — checklist step-by-step:
+      <ul>
+        <li>Run <code>npm create astro</code> ใน sandbox</li>
+        <li>Copy blueprint files</li>
+        <li>Setup <code>chaivoot/chaivoot.com</code> repo ใน GitHub</li>
+        <li>Connect Vercel + custom domain</li>
+        <li>Verify หน้าเว็บโผล่ที่ chaivoot.com</li>
+      </ul>
+    </li>
+    <li><strong>Token CSS</strong> — copy <code>colors_and_type.css</code> ไป <code>src/styles/tokens.css</code> ตรงๆ (zero conversion)</li>
+  </ol>
+
+  <p>เมื่อ Claude Code setup เสร็จ คุณจะได้ <strong>chaivoot.com ที่ live จริง</strong> พร้อม sample post 2–3 อัน. แทนที่ post ตัวอย่างด้วย post ของคุณเอง → done</p>
+
+  <div class="endcap">
+    <h2>พร้อมต่อเลยมั้ย?</h2>
+    <p>ผมสร้าง scaffold + handoff ให้ตอนนี้ได้เลย. หรือถ้ายังมีคำถามเรื่อง Astro อยากให้ขยายตรงไหนเพิ่ม บอกได้</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+  // Tabs
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      const group = btn.closest('section');
+      group.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b === btn));
+      group.querySelectorAll('.tab-panel').forEach(p => {
+        p.classList.toggle('active', p.id === target);
+      });
+    });
+  });
+
+  // Smooth scroll for TOC
+  document.querySelectorAll('.toc a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      const el = document.querySelector(href);
+      if (el) {
+        e.preventDefault();
+        window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+        history.replaceState(null, '', href);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
