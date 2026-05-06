@@ -7,4 +7,6 @@ export const SITE = {
   authorBio: 'บันทึกของผู้ชายวัย 50 — ธุรกิจ Longevity และมอมแมม',
   copyrightLine: '© 2026 · บันทึกของชัยวุฒิ',
   lineUrl: 'https://line.me/ti/p/zcsfWQiMW4',
+  igUrl:   'https://www.instagram.com/chaivoot/',
+  fbUrl:   'https://www.facebook.com/chaivoot',
 };
