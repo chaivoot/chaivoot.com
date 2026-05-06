@@ -76,7 +76,13 @@ main { min-height: 70vh; }
     grid-template-columns: 130px 1fr;
     gap: var(--s-4);
   }
+  .hero-text { display: contents; }
+  .hero-ctas {
+    grid-column: 1 / -1;
+    margin-top: var(--s-4);
+  }
   .hero-photo { margin-top: 12px; }
+  .pillars { display: none; }
 }
 .hero h1 {
   font-size: clamp(28px, 4vw, 36px);
