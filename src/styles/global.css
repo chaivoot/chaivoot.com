@@ -65,9 +65,10 @@ main { min-height: 70vh; }
 .hero-text { min-width: 0; }
 .hero-photo {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: var(--r-md);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
   object-fit: cover;
+  object-position: 50% 28%;
   background: var(--bg-alt);
 }
 @media (max-width: 640px) {
