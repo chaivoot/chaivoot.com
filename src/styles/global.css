@@ -55,9 +55,9 @@ main { min-height: 70vh; }
   max-width: var(--w-feed); margin: 0 auto;
   padding: var(--s-8) var(--pad-x) var(--s-7);
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: var(--s-7);
-  align-items: center;
+  grid-template-columns: 1fr 220px;
+  gap: var(--s-6);
+  align-items: start;
 }
 .hero-text { min-width: 0; }
 .hero-photo {
@@ -66,16 +66,13 @@ main { min-height: 70vh; }
   border-radius: var(--r-md);
   object-fit: cover;
   background: var(--bg-alt);
+  margin-top: var(--s-2);
 }
-@media (max-width: 720px) {
+@media (max-width: 540px) {
   .hero {
-    grid-template-columns: 1fr;
-    gap: var(--s-5);
+    grid-template-columns: 1fr 130px;
+    gap: var(--s-4);
     padding-top: var(--s-7);
-  }
-  .hero-photo {
-    max-width: 280px;
-    margin: 0 auto;
   }
 }
 .hero h1 {
