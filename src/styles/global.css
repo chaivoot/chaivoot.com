@@ -58,7 +58,7 @@ main { min-height: 70vh; }
 .hero h1 { margin-bottom: var(--s-5); }
 .hero-body {
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 200px 1fr;
   gap: var(--s-6);
   align-items: start;
 }
@@ -73,7 +73,7 @@ main { min-height: 70vh; }
 @media (max-width: 640px) {
   .hero h1 { margin-bottom: var(--s-4); }
   .hero-body {
-    grid-template-columns: 1fr 110px;
+    grid-template-columns: 110px 1fr;
     gap: var(--s-4);
   }
 }
