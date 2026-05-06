@@ -274,11 +274,15 @@ main { min-height: 70vh; }
 /* ----- ABOUT ----- */
 .about { max-width: var(--w-body); margin: 0 auto; padding: var(--s-7) var(--pad-x) var(--s-7); }
 .about-photo {
-  width: 100%; aspect-ratio: 4 / 5;
-  border-radius: var(--r-md);
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
   object-fit: cover;
-  margin: 0 0 var(--s-7);
+  object-position: 50% 25%;
+  margin: 0 auto var(--s-7);
   background: var(--bg-alt);
+  display: block;
 }
 .about h1 { font-size: 28px; font-weight: 500; margin-bottom: var(--s-4); letter-spacing: -0.015em; }
 .about p { font-size: 16px; line-height: 1.85; color: var(--fg); margin-bottom: var(--s-4); }
