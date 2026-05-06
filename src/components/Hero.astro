@@ -2,21 +2,23 @@
 import { SITE } from '../lib/site';
 ---
 <section class="hero fade-in">
-  <div class="hero-text">
-    <h1>บันทึกของชายวัย 50 กับหมา 1 ตัว ที่สนใจ Longevity และธุรกิจ Amway</h1>
-    <p class="hero-sub">เขียนสิ่งที่คิด สิ่งที่ทำ สิ่งที่อยากจำไว้ — บางวันสั้น บางวันยาว ไม่มีตารางบังคับ</p>
-    <div class="hero-ctas">
-      <a class="btn btn-line" href={SITE.lineUrl} target="_blank" rel="noopener">คุยกันทาง LINE</a>
-      <a class="btn btn-outline" href="/about">ทำความรู้จัก</a>
+  <h1>บันทึกของชายวัย 50 กับหมา 1 ตัว ที่สนใจ Longevity และธุรกิจ Amway</h1>
+  <div class="hero-body">
+    <div class="hero-text">
+      <p class="hero-sub">เขียนสิ่งที่คิด สิ่งที่ทำ สิ่งที่อยากจำไว้ — บางวันสั้น บางวันยาว ไม่มีตารางบังคับ</p>
+      <div class="hero-ctas">
+        <a class="btn btn-line" href={SITE.lineUrl} target="_blank" rel="noopener">คุยกันทาง LINE</a>
+        <a class="btn btn-outline" href="/about">ทำความรู้จัก</a>
+      </div>
     </div>
+    <img
+      class="hero-photo"
+      src="/chaivoot-hero.jpg"
+      alt="ชัยวุฒิและมอมแมม"
+      width="1108"
+      height="1477"
+      loading="eager"
+      fetchpriority="high"
+    />
   </div>
-  <img
-    class="hero-photo"
-    src="/chaivoot-hero.jpg"
-    alt="ชัยวุฒิและมอมแมม"
-    width="1108"
-    height="1477"
-    loading="eager"
-    fetchpriority="high"
-  />
 </section>

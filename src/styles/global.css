@@ -54,8 +54,11 @@ main { min-height: 70vh; }
 .hero {
   max-width: var(--w-feed); margin: 0 auto;
   padding: var(--s-8) var(--pad-x) var(--s-7);
+}
+.hero h1 { margin-bottom: var(--s-5); }
+.hero-body {
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: 1fr 200px;
   gap: var(--s-6);
   align-items: start;
 }
@@ -66,13 +69,12 @@ main { min-height: 70vh; }
   border-radius: var(--r-md);
   object-fit: cover;
   background: var(--bg-alt);
-  margin-top: var(--s-2);
 }
 @media (max-width: 640px) {
-  .hero {
-    grid-template-columns: 1fr 100px;
-    gap: var(--s-3);
-    padding-top: var(--s-7);
+  .hero h1 { margin-bottom: var(--s-4); }
+  .hero-body {
+    grid-template-columns: 1fr 110px;
+    gap: var(--s-4);
   }
 }
 .hero h1 {
