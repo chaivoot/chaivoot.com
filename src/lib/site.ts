@@ -9,4 +9,10 @@ export const SITE = {
   lineUrl: 'https://line.me/ti/p/zcsfWQiMW4',
   igUrl:   'https://www.instagram.com/chaivoot/',
   fbUrl:   'https://www.facebook.com/chaivoot',
+  // Google Analytics 4 Measurement ID. '' disables GA.
+  gaId:    'G-JC562PTP4L',
+  // Google Search Console verification token (the value of the
+  // <meta name="google-site-verification" content="..."> tag).
+  // '' disables the meta tag.
+  gscVerify: '',
 };
