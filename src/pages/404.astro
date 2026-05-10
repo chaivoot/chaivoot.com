@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="ไม่พบหน้านี้ — chaivoot"
+  description="หน้าที่คุณกำลังค้นหาไม่มีอยู่แล้ว"
+>
+  <section class="notfound fade-in">
+    <p class="notfound-eyebrow">404</p>
+    <h1>ไม่พบหน้าที่คุณกำลังค้นหา</h1>
+    <p class="notfound-lead">
+      หน้านี้อาจถูกย้าย เปลี่ยนชื่อ หรือไม่มีอยู่แล้วในเว็บใหม่ของผมครับ
+    </p>
+    <p class="notfound-sub">
+      ถ้าอยากอ่านบันทึกอื่นๆ ลองกดกลับไปที่หน้าแรกได้เลยครับ
+    </p>
+    <div class="notfound-ctas">
+      <a class="btn btn-outline" href="/">← กลับไปหน้าแรก</a>
+      <a class="btn btn-ghost" href="/about">เกี่ยวกับผม</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: var(--w-body);
+    margin: 0 auto;
+    padding: var(--s-9) var(--pad-x) var(--s-9);
+    text-align: center;
+  }
+  .notfound-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--fg-muted);
+    margin-bottom: var(--s-3);
+  }
+  .notfound h1 {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin-bottom: var(--s-4);
+  }
+  .notfound-lead {
+    font-size: var(--fs-lg);
+    line-height: 1.7;
+    color: var(--fg-muted);
+    margin-bottom: var(--s-3);
+  }
+  .notfound-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--fg);
+    margin-bottom: var(--s-6);
+  }
+  .notfound-ctas {
+    display: flex;
+    gap: var(--s-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
