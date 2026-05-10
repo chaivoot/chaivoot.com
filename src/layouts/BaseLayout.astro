@@ -20,7 +20,21 @@ const { title, description = SITE.description } = Astro.props;
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+    <meta property="og:description" content={description} />
+  {SITE.gscVerify && (
+    <meta name="google-site-verification" content={SITE.gscVerify} />
+  )}
+  {import.meta.env.PROD && SITE.gaId && (
+    <Fragment>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`} is:inline></script>
+      <script is:inline define:vars={{ gaId: SITE.gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </Fragment>
+  )}
 </head>
 <body>
   <Nav />
