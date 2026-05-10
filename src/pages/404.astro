@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostRow from '../components/PostRow.astro';
+import { PILLARS, PILLAR_ORDER } from '../lib/pillars';
+import { SITE } from '../lib/site';
+
+const recent = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+<BaseLayout title="404 — ไม่พบหน้านี้ — chaivoot" description="หน้าที่คุณกำลังหาอาจถูกย้าย ลบ หรือไม่เคยมีอยู่">
+  <section class="nf">
+    <p class="nf-num">404</p>
+    <h1>ขออภัย หาหน้านี้ไม่เจอ</h1>
+    <p class="nf-lead">หน้าที่คุณคลิกอาจถูกย้ายตอนเปลี่ยนเว็บใหม่ หรือลิงก์อาจพิมพ์ไม่ครบ ลองหาในส่วนต่างๆ ด้านล่างได้เลยครับ</p>
+
+    <div class="nf-pillars">
+      {PILLAR_ORDER.map((id) => (
+        <a class="nf-pillar" href={`/pillars/${id}`}>
+          <span class="nf-stripe" style={`background:${PILLARS[id].ink}`}></span>
+          <div class="nf-pillar-num">{PILLARS[id].num}</div>
+          <div class="nf-pillar-name">{PILLARS[id].name}</div>
+          <div class="nf-pillar-desc">{PILLARS[id].desc}</div>
+        </a>
+      ))}
+    </div>
+
+    <h2 class="nf-eyebrow">บันทึกล่าสุด</h2>
+    <div class="nf-feed">
+      {recent.map((post) => <PostRow post={post} />)}
+    </div>
+
+    <div class="nf-actions">
+      <a class="btn btn-outline" href="/">กลับหน้าแรก</a>
+      <a class="btn btn-line" href={SITE.lineUrl} target="_blank" rel="noopener">ทักมาทาง LINE</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    max-width: var(--w-feed);
+    margin: 0 auto;
+    padding: var(--s-7) var(--pad-x) var(--s-9);
+  }
+  .nf-num {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--fg-faint);
+    letter-spacing: var(--tracking-wide);
+    margin: 0 0 var(--s-3);
+  }
+  .nf h1 {
+    font-size: clamp(26px, 4vw, 34px);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    margin: 0 0 var(--s-4);
+    text-wrap: pretty;
+  }
+  .nf-lead {
+    font-size: var(--fs-lg);
+    color: var(--fg-muted);
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 0 var(--s-7);
+  }
+  .nf-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-3);
+    margin-bottom: var(--s-8);
+  }
+  .nf-pillar {
+    position: relative;
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg);
+    color: inherit;
+    transition: border-color var(--dur-base) var(--ease);
+  }
+  .nf-pillar:hover { border-color: var(--border-strong); }
+  .nf-stripe { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .nf-pillar-num { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); margin-bottom: var(--s-4); }
+  .nf-pillar-name { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .nf-pillar-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.65; }
+  @media (max-width: 720px) {
+    .nf-pillars { grid-template-columns: 1fr; }
+  }
+
+  .nf-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin: 0 0 var(--s-3);
+    font-weight: var(--fw-reg);
+  }
+  .nf-feed { display: flex; flex-direction: column; }
+  .nf-feed :global(.post-row:first-child) { border-top: 1px solid var(--border); }
+
+  .nf-actions {
+    display: flex;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+    margin-top: var(--s-7);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--border);
+  }
+</style>
