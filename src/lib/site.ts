@@ -2,7 +2,7 @@
 // visitors must accept the friend request before chatting.
 export const SITE = {
   title: 'chaivoot — บันทึก',
-  description: 'บันทึกของชายวัย 50 กับหมา 1 ตัว ที่สนใจ Longevity และธุรกิจ Amway',
+  description: 'บันทึกของชายวัย 50 กับหมา 1 ตัว ที่สนใจ Longevity และ AI',
   authorName: 'ชัยวุฒิ',
   authorBio: 'บันทึกของผู้ชายวัย 50 — ธุรกิจ Longevity และมอมแมม',
   copyrightLine: '© 2026 · บันทึกของชัยวุฒิ',
