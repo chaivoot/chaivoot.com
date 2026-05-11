@@ -7,7 +7,7 @@ const blog = defineCollection({
   schema: z.object({
     title:   z.string(),
     date:    z.date(),
-    pillar:  z.enum(['amway', 'longevity', 'dogs']),
+    pillar:  z.enum(['ai', 'amway', 'longevity', 'dogs']),
     format:  z.enum(['note', 'article']),
     excerpt: z.string().optional(),
     tags:    z.array(z.string()).optional(),
