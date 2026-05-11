@@ -121,7 +121,7 @@ main { min-height: 70vh; }
 .pillars {
   max-width: var(--w-feed); margin: var(--s-6) auto var(--s-9);
   padding: 0 var(--pad-x);
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3);
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3);
 }
 .pillar-card {
   position: relative; padding: var(--s-5);
@@ -143,7 +143,7 @@ main { min-height: 70vh; }
   display: inline-block; text-decoration: underline; text-underline-offset: 3px;
 }
 @media (max-width: 720px) {
-  .pillars { grid-template-columns: 1fr; }
+  .pillars { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
   .pillars { display: none; }
