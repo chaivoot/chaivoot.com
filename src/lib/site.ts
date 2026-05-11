@@ -1,7 +1,7 @@
 // Site-wide config. lineUrl is a personal LINE add-friend link (not an OA);
 // visitors must accept the friend request before chatting.
 export const SITE = {
-  title: 'chaivoot — บันทึก',
+  title: 'บันทึกของชายวัย 50 กับหมา 1 ตัว ที่สนใจ Longevity และ AI',
   description: 'บันทึกของชายวัย 50 กับหมา 1 ตัว ที่สนใจ Longevity และ AI',
   authorName: 'ชัยวุฒิ',
   authorBio: 'บันทึกของผู้ชายวัย 50 — ธุรกิจ Longevity และมอมแมม',

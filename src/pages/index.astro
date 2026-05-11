@@ -5,11 +5,12 @@ import Hero from '../components/Hero.astro';
 import PillarCards from '../components/PillarCards.astro';
 import Feed from '../components/Feed.astro';
 import LineCTA from '../components/LineCTA.astro';
+import { SITE } from '../lib/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
-<BaseLayout title="chaivoot — บันทึก">
+<BaseLayout title={SITE.title}>
   <Hero />
   <PillarCards />
   <h2 class="feed-eyebrow">บันทึกล่าสุด</h2>
