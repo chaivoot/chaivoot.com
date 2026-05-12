@@ -1,0 +1,30 @@
+---
+import CourseLayout from '../../layouts/CourseLayout.astro';
+import Hero from '../../components/ai-course/Hero.astro';
+import StatsBar from '../../components/ai-course/StatsBar.astro';
+import Problems from '../../components/ai-course/Problems.astro';
+import Solution from '../../components/ai-course/Solution.astro';
+import Demos from '../../components/ai-course/Demos.astro';
+import LineBridge from '../../components/ai-course/LineBridge.astro';
+import Why from '../../components/ai-course/Why.astro';
+import Format from '../../components/ai-course/Format.astro';
+import Pricing from '../../components/ai-course/Pricing.astro';
+import RegisterForm from '../../components/ai-course/RegisterForm.tsx';
+import { SITE } from '../../lib/site';
+
+const title = 'คอร์ส AI Web App — คนธรรมดาก็สร้างเว็บแอปได้';
+const description =
+  '1–2 วัน นั่งทำไปด้วยกัน คุยกับ AI สร้างเว็บแอปของธุรกิจคุณเองได้จริง — ไม่ต้องเขียนโค้ดสักบรรทัด';
+---
+<CourseLayout title={title} description={description}>
+  <Hero lineUrl={SITE.lineUrl} />
+  <StatsBar />
+  <Problems />
+  <Solution />
+  <Demos />
+  <LineBridge lineUrl={SITE.lineUrl} />
+  <Why />
+  <Format />
+  <Pricing />
+  <RegisterForm client:load lineUrl={SITE.lineUrl} />
+</CourseLayout>

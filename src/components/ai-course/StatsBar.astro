@@ -1,0 +1,17 @@
+---
+const stats = [
+  { n: '0',   l: 'บรรทัดที่ต้องเขียนเอง — คุยกับ AI เป็นพอ' },
+  { n: '1–2', l: 'วัน เริ่มจากศูนย์ → มีเว็บแอปใช้งานได้จริง' },
+  { n: '100%', l: 'ทำต่อเองได้หลังจบ ไม่ต้องพึ่งผู้สอน' },
+];
+---
+<section class="stats-bar">
+  <div class="wrap stats-grid">
+    {stats.map((s) => (
+      <div class="stat-item">
+        <div class="stat-n">{s.n}</div>
+        <div class="stat-l">{s.l}</div>
+      </div>
+    ))}
+  </div>
+</section>
