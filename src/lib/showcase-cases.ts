@@ -22,7 +22,7 @@ export const SHOWCASE_CASES: ShowcaseCase[] = [
     audience: 'สำหรับคนรักสัตว์เลี้ยง / คลินิกสัตว์',
     title: 'ระบบบันทึกสุขภาพสัตว์เลี้ยง',
     desc: 'บันทึกน้ำหนัก ฉีดวัคซีน ประวัติสุขภาพ — เตือนวัคซีนรอบถัดไปอัตโนมัติ',
-    tourReady: false,
+    tourReady: true,
   },
   {
     slug: 'astro',
@@ -30,7 +30,7 @@ export const SHOWCASE_CASES: ShowcaseCase[] = [
     audience: 'สำหรับหมอดู / ร้านดูดวง',
     title: 'บันทึกลูกค้าดูดวง',
     desc: 'เก็บข้อมูลลูกค้า สร้างผลลัพธ์เฉพาะตัวอัตโนมัติ — สีถูกโฉลก เครื่องประดับแนะนำ',
-    tourReady: false,
+    tourReady: true,
   },
   {
     slug: 'elder',
@@ -38,6 +38,6 @@ export const SHOWCASE_CASES: ShowcaseCase[] = [
     audience: 'สำหรับลูกที่ดูแลพ่อแม่',
     title: 'ข้อมูลสุขภาพผู้สูงอายุในบ้าน',
     desc: 'ติดตามการกินยา ความดัน น้ำตาล — สรุปวันนี้ส่งให้ลูกใน Line',
-    tourReady: false,
+    tourReady: true,
   },
 ];

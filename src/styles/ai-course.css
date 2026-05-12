@@ -1181,3 +1181,324 @@ html[data-accent="pillar"] {
 .ai-course-page .mock-btn--primary:hover { background: #000; }
 .ai-course-page .mock-btn--full { width: calc(100% - 24px); margin: 4px 12px 8px; }
 
+/* ============================================================ */
+/* PHASE B — Pet / Astro / Elder shared additions               */
+/* ============================================================ */
+
+/* ----- Avatar variants ----- */
+.ai-course-page .mock-avatar--emoji,
+.ai-course-page .mock-avatar--zodiac { font-size: 18px; }
+.ai-course-page .mock-avatar--zodiac { background: #ECEAF1; color: #3D3B5C; }
+.ai-course-page .mock-avatar--big {
+  width: 44px; height: 44px; font-size: 28px;
+}
+
+/* ----- KPI variant ----- */
+.ai-course-page .mock-kpi--warn { background: #FBE9DA; }
+.ai-course-page .mock-kpi--warn .mock-kpi-num { color: #8C4319; }
+
+/* ----- Tile variant ----- */
+.ai-course-page .mock-tile--good { background: #E5F0E8; }
+.ai-course-page .mock-tile--good .mock-tile-num { color: #2F6B43; }
+.ai-course-page .mock-tile-num--md {
+  font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+}
+
+/* ----- List sub label inline ----- */
+.ai-course-page .mock-list-sub {
+  font-weight: 400; color: #6B6B6B; font-size: 11px;
+}
+
+/* ----- Generic info card ----- */
+.ai-course-page .mock-info-card {
+  margin: 0 12px;
+  padding: 10px 12px;
+  background: #FBFAF7; border: 1px solid #F0EDE7; border-radius: 10px;
+  font-size: 13px; color: #1a1a1a; line-height: 1.55;
+}
+.ai-course-page .mock-info-card--ribbon {
+  background: #F4EBE0; border-color: transparent; color: #1a1a1a;
+}
+
+/* ----- Banner (alert callout) ----- */
+.ai-course-page .mock-banner {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 12px; padding: 10px 12px;
+  background: #FBFAF7; border: 1px solid #F0EDE7; border-radius: 10px;
+  font-size: 12px; line-height: 1.5;
+}
+.ai-course-page .mock-banner--accent {
+  background: #F4EBE0; border-color: rgba(110,63,42,0.18);
+}
+.ai-course-page .mock-banner-icon { font-size: 18px; flex-shrink: 0; }
+.ai-course-page .mock-banner-text { flex: 1; color: #1a1a1a; }
+.ai-course-page .mock-banner-text strong { color: #6E3F2A; font-weight: 600; }
+
+/* ----- Inline list variant (no fixed flex-1) ----- */
+.ai-course-page .mock-list--inline {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+/* ----- Chart delta variant (up = red/warning) ----- */
+.ai-course-page .mock-chart-delta--up { color: #8C4319; }
+
+/* ============================================================ */
+/* PET — vaccine + timeline                                     */
+/* ============================================================ */
+
+.ai-course-page .mock-vac-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 60px; padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 11px; font-weight: 600;
+  flex-shrink: 0;
+}
+.ai-course-page .mock-vac-badge--done     { background: #E5F0E8; color: #2F6B43; }
+.ai-course-page .mock-vac-badge--upcoming { background: #F4EBE0; color: #6E3F2A; }
+.ai-course-page .mock-vac-badge--overdue  { background: #FBE9DA; color: #8C4319; }
+
+/* ----- Timeline ----- */
+.ai-course-page .mock-timeline {
+  list-style: none; padding: 4px 16px 0; margin: 0;
+  position: relative;
+}
+.ai-course-page .mock-timeline::before {
+  content: ''; position: absolute;
+  left: 22px; top: 12px; bottom: 12px;
+  width: 1px; background: #F0EDE7;
+}
+.ai-course-page .mock-timeline-row {
+  position: relative;
+  padding: 8px 0 12px 18px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.ai-course-page .mock-timeline-dot {
+  position: absolute; left: 2px; top: 12px;
+  width: 9px; height: 9px; border-radius: 999px;
+  background: var(--accent); box-shadow: 0 0 0 3px #fff;
+  z-index: 1;
+}
+.ai-course-page .mock-timeline-content {
+  display: flex; flex-direction: column; gap: 2px;
+  flex: 1;
+}
+.ai-course-page .mock-timeline-date {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+  color: #6E3F2A; text-transform: uppercase;
+}
+.ai-course-page .mock-timeline-title {
+  font-size: 13px; font-weight: 500; color: #1a1a1a; line-height: 1.4;
+}
+.ai-course-page .mock-timeline-meta {
+  font-size: 11px; color: #6B6B6B; line-height: 1.5;
+}
+
+/* ============================================================ */
+/* ASTRO — zodiac, stars, color swatches                        */
+/* ============================================================ */
+
+.ai-course-page .mock-zodiac-hero {
+  display: flex; align-items: center; gap: 12px;
+  margin: 4px 12px;
+  padding: 14px 14px;
+  background: linear-gradient(135deg, #ECEAF1 0%, #F4EBE0 100%);
+  border-radius: 14px;
+}
+.ai-course-page .mock-zodiac-symbol {
+  font-size: 36px; line-height: 1; flex-shrink: 0;
+}
+.ai-course-page .mock-zodiac-info {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.ai-course-page .mock-zodiac-label {
+  font-size: 10px; color: #6B6B6B; letter-spacing: 0.06em;
+}
+.ai-course-page .mock-zodiac-name {
+  font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #1a1a1a;
+}
+.ai-course-page .mock-zodiac-divider {
+  width: 1px; align-self: stretch; background: rgba(0,0,0,0.08);
+  margin: 4px 4px;
+}
+
+/* ----- Reading card + stars ----- */
+.ai-course-page .mock-reading-card {
+  margin: 0 12px;
+  background: #FBFAF7; border: 1px solid #F0EDE7; border-radius: 12px;
+  padding: 8px 12px;
+  display: flex; flex-direction: column;
+}
+.ai-course-page .mock-star-row {
+  display: grid; grid-template-columns: 70px auto 1fr;
+  gap: 8px; align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #F0EDE7;
+}
+.ai-course-page .mock-star-row:last-child { border-bottom: none; }
+.ai-course-page .mock-star-label {
+  font-size: 12px; font-weight: 500; color: #1a1a1a;
+}
+.ai-course-page .mock-stars { font-size: 13px; letter-spacing: 1px; line-height: 1; }
+.ai-course-page .mock-star { color: #E8E1D3; }
+.ai-course-page .mock-star--on { color: #D9A05B; }
+.ai-course-page .mock-star-note {
+  font-size: 11px; color: #6B6B6B; line-height: 1.4;
+}
+
+/* ----- Color grid ----- */
+.ai-course-page .mock-color-grid {
+  list-style: none; padding: 0; margin: 0 12px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+}
+.ai-course-page .mock-color-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.ai-course-page .mock-color-dot {
+  width: 44px; height: 44px; border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(20,20,20,0.10), inset 0 0 0 2px rgba(255,255,255,0.4);
+}
+.ai-course-page .mock-color-name {
+  font-size: 10px; color: #6B6B6B; text-align: center; line-height: 1.3;
+}
+
+/* ----- Weekday list ----- */
+.ai-course-page .mock-weekday-list {
+  list-style: none; padding: 0; margin: 0 12px;
+  background: #FBFAF7; border: 1px solid #F0EDE7; border-radius: 10px;
+  overflow: hidden;
+}
+.ai-course-page .mock-weekday-row {
+  display: grid; grid-template-columns: 70px 24px 1fr;
+  gap: 10px; align-items: center;
+  padding: 8px 14px;
+  border-bottom: 1px solid #F0EDE7;
+}
+.ai-course-page .mock-weekday-row:last-child { border-bottom: none; }
+.ai-course-page .mock-weekday-name {
+  font-size: 12px; font-weight: 500; color: #1a1a1a;
+}
+.ai-course-page .mock-weekday-swatch {
+  width: 22px; height: 22px; border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+}
+.ai-course-page .mock-weekday-color {
+  font-size: 11px; color: #6B6B6B;
+}
+
+/* ----- Jewelry list ----- */
+.ai-course-page .mock-jewel-list {
+  list-style: none; padding: 0; margin: 0 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ai-course-page .mock-jewel-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px;
+  background: #FBFAF7; border: 1px solid #F0EDE7; border-radius: 10px;
+}
+.ai-course-page .mock-jewel-icon { font-size: 18px; flex-shrink: 0; }
+.ai-course-page .mock-jewel-text {
+  display: flex; flex-direction: column; gap: 1px;
+}
+.ai-course-page .mock-jewel-name {
+  font-size: 13px; font-weight: 500; color: #1a1a1a;
+}
+.ai-course-page .mock-jewel-reason {
+  font-size: 11px; color: #6B6B6B;
+}
+
+/* ============================================================ */
+/* ELDER — chips, summary cards, meds, vitals                   */
+/* ============================================================ */
+
+/* ----- Chips ----- */
+.ai-course-page .mock-chip-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 0 12px;
+}
+.ai-course-page .mock-chip {
+  background: #F4EBE0; color: #6E3F2A;
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 500;
+}
+
+/* ----- Summary grid ----- */
+.ai-course-page .mock-summary-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  padding: 0 12px;
+}
+.ai-course-page .mock-summary-card {
+  background: #F7F6F2; border-radius: 10px;
+  padding: 10px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.ai-course-page .mock-summary-card--good { background: #E5F0E8; }
+.ai-course-page .mock-summary-card--warn { background: #FBE9DA; }
+.ai-course-page .mock-summary-icon { font-size: 18px; line-height: 1; }
+.ai-course-page .mock-summary-num {
+  font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: #1a1a1a;
+}
+.ai-course-page .mock-summary-card--good .mock-summary-num { color: #2F6B43; }
+.ai-course-page .mock-summary-card--warn .mock-summary-num { color: #8C4319; }
+.ai-course-page .mock-summary-label {
+  font-size: 10px; color: #6B6B6B; line-height: 1.4;
+}
+
+/* ----- Med row (interactive check) ----- */
+.ai-course-page .mock-med-row {
+  align-items: center;
+}
+.ai-course-page .mock-med-row--done .mock-list-name {
+  color: #6B6B6B; text-decoration: line-through;
+}
+.ai-course-page .mock-check {
+  width: 24px; height: 24px; border-radius: 6px;
+  border: 1.5px solid #D7D4CD;
+  background: #fff;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 14px; color: transparent;
+  transition: background var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease), color var(--dur-quick) var(--ease);
+}
+.ai-course-page .mock-check--on {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+
+/* ----- Vital hero (BP / sugar large display) ----- */
+.ai-course-page .mock-vital-hero {
+  margin: 4px 12px;
+  padding: 14px;
+  background: #FBFAF7; border: 1px solid #F0EDE7; border-radius: 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.ai-course-page .mock-vital-num {
+  font-size: 32px; font-weight: 700; letter-spacing: -0.03em; color: #1a1a1a;
+  line-height: 1;
+}
+.ai-course-page .mock-vital-num small {
+  font-size: 16px; font-weight: 500; color: #6B6B6B; letter-spacing: 0;
+}
+.ai-course-page .mock-vital-meta {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: #6B6B6B;
+}
+.ai-course-page .mock-vital-extra {
+  font-size: 11px; color: #9A9A9A; margin-top: 2px;
+}
+
+/* ----- Zone list ----- */
+.ai-course-page .mock-zone-list {
+  list-style: none; padding: 0; margin: 0 12px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.ai-course-page .mock-zone-list li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: #1a1a1a;
+}
+.ai-course-page .mock-zone-bar {
+  width: 18px; height: 4px; border-radius: 2px; flex-shrink: 0;
+}
+.ai-course-page .mock-zone-bar--good  { background: #7AAE85; }
+.ai-course-page .mock-zone-bar--watch { background: #D9A05B; }
+.ai-course-page .mock-zone-bar--warn  { background: #C56A4D; }
+

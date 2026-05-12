@@ -1,92 +1,7 @@
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
+import { PhoneShell, AppHeader, Ring, MiniSpark, LineChart, type Brand } from './shared';
 
-/* ============ Helpers ============ */
-
-function PhoneShell({ children }: { children: ReactNode }) {
-  return (
-    <div className="mock-screen">
-      <div className="mock-brand-bar">
-        <span className="mock-brand-logo" aria-hidden="true">F</span>
-        <span className="mock-brand-text">
-          <span className="mock-brand-name">FitNote</span>
-          <span className="mock-brand-sub">by โค้ชแนน</span>
-        </span>
-      </div>
-      {children}
-    </div>
-  );
-}
-
-function AppHeader({
-  title,
-  back,
-  onBack,
-  action,
-}: {
-  title: string;
-  back?: boolean;
-  onBack?: () => void;
-  action?: ReactNode;
-}) {
-  return (
-    <div className="mock-app-head">
-      <div className="mock-app-head-left">
-        {back && (
-          <button type="button" className="mock-app-back-btn" onClick={onBack} aria-label="กลับ">
-            <span aria-hidden="true">‹</span>
-          </button>
-        )}
-        <span className="mock-app-title">{title}</span>
-      </div>
-      {action && <div className="mock-app-head-right">{action}</div>}
-    </div>
-  );
-}
-
-interface RingProps {
-  fraction: number;
-  color?: string;
-  stroke?: number;
-  children: ReactNode;
-  size?: 'sm' | 'md' | 'lg';
-  trackColor?: string;
-}
-function Ring({ fraction, color = 'var(--accent)', stroke = 9, children, size = 'md', trackColor = '#F0EDE7' }: RingProps) {
-  const r = (100 - stroke) / 2;
-  const c = 2 * Math.PI * r;
-  const clamped = Math.max(0, Math.min(1, fraction));
-  const offset = c * (1 - clamped);
-  return (
-    <div className={`mock-ring mock-ring--${size}`}>
-      <svg viewBox="0 0 100 100" className="mock-ring-svg">
-        <circle cx="50" cy="50" r={r} stroke={trackColor} strokeWidth={stroke} fill="none" />
-        <circle
-          cx="50" cy="50" r={r} stroke={color} strokeWidth={stroke} fill="none"
-          strokeDasharray={c} strokeDashoffset={offset}
-          strokeLinecap="round" transform="rotate(-90 50 50)"
-        />
-      </svg>
-      <div className="mock-ring-text">{children}</div>
-    </div>
-  );
-}
-
-function MiniSpark({ points, up }: { points: number[]; up?: boolean }) {
-  if (points.length < 2) return null;
-  const max = Math.max(...points);
-  const min = Math.min(...points);
-  const range = max - min || 1;
-  const w = 48; const h = 16;
-  const step = w / (points.length - 1);
-  const path = points
-    .map((p, i) => `${i === 0 ? 'M' : 'L'}${(i * step).toFixed(1)},${(h - ((p - min) / range) * h).toFixed(1)}`)
-    .join(' ');
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} className={`mock-spark ${up ? 'mock-spark--up' : 'mock-spark--down'}`}>
-      <path d={path} fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+const BRAND: Brand = { letter: 'F', name: 'FitNote', sub: 'by โค้ชแนน' };
 
 /* ============ Data ============ */
 
@@ -109,7 +24,7 @@ const CLIENTS: Client[] = [
   { id: 'kae',     name: 'เก๋ ทองสุข',      status: 'หยุดมา 2 สัปดาห์',    trend: 'warn', initial: 'ก', spark: [66, 65.8, 65.5, 65.7, 66, 66.2] },
 ];
 
-/* ============ List view ============ */
+/* ============ List ============ */
 
 function ListView({ onSelect }: { onSelect: (id: string) => void }) {
   return (
@@ -155,9 +70,9 @@ function ListView({ onSelect }: { onSelect: (id: string) => void }) {
   );
 }
 
-/* ============ Profile view ============ */
+/* ============ Profile ============ */
 
-function ProfileView({ client }: { client: Client }) {
+function ProfileView() {
   const bmi = 24.9;
   const bmiFraction = Math.max(0, Math.min(1, (bmi - 18) / (35 - 18)));
 
@@ -204,7 +119,7 @@ function ProfileView({ client }: { client: Client }) {
   );
 }
 
-/* ============ Measure view ============ */
+/* ============ Measure ============ */
 
 function MeasureView() {
   const cards = [
@@ -253,7 +168,7 @@ function MeasureView() {
   );
 }
 
-/* ============ Goal view ============ */
+/* ============ Goal ============ */
 
 function GoalView() {
   const done = 2.3;
@@ -302,7 +217,7 @@ function GoalView() {
   );
 }
 
-/* ============ Progress view ============ */
+/* ============ Progress ============ */
 
 function CompositionDonut() {
   const segments = [
@@ -321,13 +236,8 @@ function CompositionDonut() {
           const offset = -acc;
           acc += len;
           return (
-            <circle
-              key={s.label}
-              cx="50" cy="50" r={r}
-              stroke={s.color} strokeWidth="14" fill="none"
-              strokeDasharray={dash} strokeDashoffset={offset}
-              transform="rotate(-90 50 50)"
-            />
+            <circle key={s.label} cx="50" cy="50" r={r} stroke={s.color} strokeWidth="14" fill="none"
+              strokeDasharray={dash} strokeDashoffset={offset} transform="rotate(-90 50 50)" />
           );
         })}
         <text x="50" y="48" textAnchor="middle" fontSize="14" fontWeight="600" fill="#1a1a1a">38%</text>
@@ -348,6 +258,7 @@ function CompositionDonut() {
 
 function ProgressView() {
   const [range, setRange] = useState<'7d' | '30d' | 'all'>('30d');
+  const weights = [70, 69.4, 68.8, 68.0, 67.4, 66.8, 66.2, 65.7];
   return (
     <div className="mock-scroll">
       <div className="mock-tabs">
@@ -361,23 +272,7 @@ function ProgressView() {
           <span>น้ำหนัก</span>
           <span className="mock-chart-delta">−2.3 กก.</span>
         </div>
-        <svg viewBox="0 0 280 110" preserveAspectRatio="none" className="mock-chart-svg">
-          <defs>
-            <linearGradient id="gradFitness" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          {[20, 50, 80].map((y) => (
-            <line key={y} x1="0" y1={y} x2="280" y2={y} stroke="#F0EDE7" strokeWidth="0.5" strokeDasharray="2 3" />
-          ))}
-          <path d="M0,110 L0,22 L40,28 L80,32 L120,48 L160,60 L200,72 L240,84 L280,94 L280,110 Z" fill="url(#gradFitness)" />
-          <path d="M0,22 L40,28 L80,32 L120,48 L160,60 L200,72 L240,84 L280,94" stroke="var(--accent)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-          {[0, 40, 80, 120, 160, 200, 240, 280].map((x, i) => {
-            const ys = [22, 28, 32, 48, 60, 72, 84, 94];
-            return <circle key={x} cx={x} cy={ys[i]} r="2.5" fill="#fff" stroke="var(--accent)" strokeWidth="1.5" />;
-          })}
-        </svg>
+        <LineChart values={weights} gradientId="gradFitness" />
         <div className="mock-chart-axis">
           <span>สัปดาห์ 1</span>
           <span>4</span>
@@ -391,7 +286,7 @@ function ProgressView() {
   );
 }
 
-/* ============ Main interactive app ============ */
+/* ============ App ============ */
 
 type ClientTab = 'profile' | 'measure' | 'goal' | 'progress';
 
@@ -399,7 +294,7 @@ const TABS: { id: ClientTab; label: string; icon: string }[] = [
   { id: 'profile',  label: 'โปรไฟล์',   icon: '👤' },
   { id: 'measure',  label: 'วัด',        icon: '📐' },
   { id: 'goal',     label: 'เป้า',       icon: '🎯' },
-  { id: 'progress', label: 'คืบหน้า', icon: '📈' },
+  { id: 'progress', label: 'คืบหน้า',    icon: '📈' },
 ];
 
 export function FitnessApp() {
@@ -409,31 +304,23 @@ export function FitnessApp() {
   const selected = CLIENTS.find((c) => c.id === selectedId) ?? null;
 
   return (
-    <PhoneShell>
+    <PhoneShell brand={BRAND}>
       {!selected ? (
-        <ListView
-          onSelect={(id) => {
-            setSelectedId(id);
-            setTab('profile');
-          }}
-        />
+        <ListView onSelect={(id) => { setSelectedId(id); setTab('profile'); }} />
       ) : (
         <>
           <AppHeader title={selected.name} back onBack={() => setSelectedId(null)} />
           <div className="mock-app-body">
-            {tab === 'profile'  && <ProfileView client={selected} />}
+            {tab === 'profile'  && <ProfileView />}
             {tab === 'measure'  && <MeasureView />}
             {tab === 'goal'     && <GoalView />}
             {tab === 'progress' && <ProgressView />}
           </div>
           <nav className="mock-tabbar" aria-label="แท็บลูกค้า">
             {TABS.map((t) => (
-              <button
-                key={t.id}
-                type="button"
+              <button key={t.id} type="button"
                 className={`mock-tabbar-btn ${tab === t.id ? 'mock-tabbar-btn--on' : ''}`}
-                onClick={() => setTab(t.id)}
-              >
+                onClick={() => setTab(t.id)}>
                 <span className="mock-tabbar-icon" aria-hidden="true">{t.icon}</span>
                 <span className="mock-tabbar-label">{t.label}</span>
               </button>
