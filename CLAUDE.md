@@ -39,15 +39,16 @@ committed. No `PUBLIC_` prefix — these stay server-side:
 
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
-- `RESEND_API_KEY` — registration email notification. Without it the form
-  still saves to Supabase; only the email is skipped (soft-fail, logged to
-  the Vercel function console).
-- `RESEND_FROM` (optional) — sender. Defaults to
-  `AI Web App Course <onboarding@resend.dev>`, which works without domain
-  verification but only sends to the Resend account owner's signup email.
-  Switch to `notify@chaivoot.com` once the chaivoot.com domain is verified
-  in the Resend dashboard.
-- `NOTIFY_TO` (optional) — recipient. Defaults to `gmail@chaivoot.com`.
+- `GMAIL_USER` — Gmail address that sends the registration alert (e.g.
+  `chaivoot@gmail.com`). Must match an account with 2-Step Verification
+  on and an App Password generated.
+- `GMAIL_APP_PASSWORD` — 16-character Google App Password (spaces in
+  the value are OK, Google copies them with spaces). Generate at
+  myaccount.google.com → Security → App passwords. Without this env
+  the form still saves to Supabase; only the email is skipped
+  (soft-fail, logged to the Vercel function console).
+- `NOTIFY_TO` (optional) — destination address for the notification.
+  Defaults to `GMAIL_USER` (i.e., the same account sends to itself).
 
 Reads happen at request time via `process.env` in `src/lib/supabase.ts`
 and `src/lib/email.ts`.

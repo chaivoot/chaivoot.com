@@ -10,7 +10,7 @@ export const SITE = {
   // LINE Official Account add-friend URL used on /ai-course. Kept separate
   // from `lineUrl` (personal LINE) so course visitors land on the OA.
   courseLineUrl: 'https://lin.ee/ozM0HAD',
-  email:   'gmail@chaivoot.com',
+  email:   'chaivoot@gmail.com',
   igUrl:   'https://www.instagram.com/chaivoot/',
   fbUrl:   'https://www.facebook.com/chaivoot',
   // Google Analytics 4 Measurement ID. '' disables GA.

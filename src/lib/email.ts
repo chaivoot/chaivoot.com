@@ -1,14 +1,29 @@
-// Server-only email notifier. Sends registration alerts via Resend.
+// Server-only email notifier. Sends registration alerts via Gmail SMTP.
 //
-// Mirrors the supabase.ts pattern: lazy init, runtime env reads, custom
+// Mirrors supabase.ts patterns: lazy init, runtime env reads, custom
 // error class. Email is treated as a soft signal — the caller in
 // register.ts wraps notifyRegistration() in try/catch so the form
-// response stays green even if Resend is misconfigured or down. The
+// response stays green even if SMTP is misconfigured or down. The
 // authoritative record is always the Supabase row.
+//
+// Why Gmail SMTP (not a third-party API like Resend / Postmark):
+//   1. Notifications go to a personal Gmail anyway — no need for
+//      domain verification or a separate service
+//   2. One Google account, one App Password — no monthly free tier
+//      to watch
+//   3. Sending from yourself to yourself never hits spam quarantine
+//
+// Setup the user needs to do once:
+//   1. Google Account → Security → 2-Step Verification (must be ON)
+//   2. Security → App passwords → generate (16 chars, e.g.
+//      'abcd efgh ijkl mnop')
+//   3. Vercel env vars (all 3 environments):
+//        GMAIL_USER = chaivoot@gmail.com
+//        GMAIL_APP_PASSWORD = <the 16-char string, spaces OK>
 
-import { Resend } from 'resend';
+import nodemailer, { type Transporter } from 'nodemailer';
 
-let _client: Resend | null = null;
+let _transporter: Transporter | null = null;
 
 export class EmailConfigError extends Error {
   missing: string[];
@@ -19,12 +34,22 @@ export class EmailConfigError extends Error {
   }
 }
 
-function getResend(): Resend {
-  if (_client) return _client;
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) throw new EmailConfigError(['RESEND_API_KEY']);
-  _client = new Resend(apiKey);
-  return _client;
+function getTransporter(): Transporter {
+  if (_transporter) return _transporter;
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  const missing: string[] = [];
+  if (!user) missing.push('GMAIL_USER');
+  if (!pass) missing.push('GMAIL_APP_PASSWORD');
+  if (missing.length > 0) throw new EmailConfigError(missing);
+
+  _transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: { user, pass },
+  });
+  return _transporter;
 }
 
 export interface RegistrationPayload {
@@ -43,6 +68,15 @@ function fmtBangkokNow(): string {
     dateStyle: 'full',
     timeStyle: 'short',
   });
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function buildHtml(reg: RegistrationPayload, when: string): string {
@@ -108,33 +142,20 @@ function buildText(reg: RegistrationPayload, when: string): string {
   ].join('\n');
 }
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
 export async function notifyRegistration(reg: RegistrationPayload): Promise<void> {
-  // onboarding@resend.dev works without domain verification but only sends
-  // to the Resend account owner's signup email — fine for personal use.
-  // Switch RESEND_FROM to notify@chaivoot.com once the domain is verified.
-  const from = process.env.RESEND_FROM || 'AI Web App Course <onboarding@resend.dev>';
-  const to = process.env.NOTIFY_TO || 'gmail@chaivoot.com';
+  const user = process.env.GMAIL_USER!;
+  // Gmail SMTP requires the From address to match the authenticated
+  // account. A display name in front is fine.
+  const from = `AI Web App Course <${user}>`;
+  const to = process.env.NOTIFY_TO || user;
   const when = fmtBangkokNow();
 
-  const client = getResend();
-  const result = await client.emails.send({
+  const transporter = getTransporter();
+  await transporter.sendMail({
     from,
     to,
     subject: `🎓 มีคนสมัครเรียน — ${reg.name}`,
     html: buildHtml(reg, when),
     text: buildText(reg, when),
   });
-
-  if (result.error) {
-    throw new Error(`Resend API error: ${result.error.message}`);
-  }
 }
