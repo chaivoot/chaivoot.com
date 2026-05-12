@@ -2,9 +2,9 @@
 // Accepts form submission, validates, inserts into course_registrations.
 
 import type { APIRoute } from 'astro';
-import { supabaseAdmin } from '../../../lib/supabase';
+import { getSupabaseAdmin, SupabaseConfigError } from '../../../lib/supabase';
 
-export const prerender = false; // SSR — needed for API route
+export const prerender = false;
 
 interface RegisterBody {
   name?: string;
@@ -20,10 +20,9 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     body = await request.json();
   } catch {
-    return json({ error: 'invalid_json' }, 400);
+    return json({ ok: false, error: 'invalid_json' }, 400);
   }
 
-  // Validation
   const errors: Record<string, string> = {};
   const name = (body.name || '').trim();
   const phone = (body.phone || '').trim() || null;
@@ -42,13 +41,25 @@ export const POST: APIRoute = async ({ request }) => {
 
   const user_agent = request.headers.get('user-agent') || null;
 
-  const { error } = await supabaseAdmin
-    .from('course_registrations')
-    .insert({ name, phone, line_id, business, want, plan, user_agent, source: 'landing' });
+  try {
+    const { error: dbError } = await getSupabaseAdmin()
+      .from('course_registrations')
+      .insert({ name, phone, line_id, business, want, plan, user_agent, source: 'landing' });
 
-  if (error) {
-    console.error('[register] supabase insert failed:', error);
-    return json({ ok: false, error: 'db_error' }, 500);
+    if (dbError) {
+      console.error('[register] supabase insert failed:', dbError);
+      return json({ ok: false, error: 'db_error', detail: dbError.message }, 500);
+    }
+  } catch (e) {
+    if (e instanceof SupabaseConfigError) {
+      console.error('[register] supabase config error:', e.message);
+      return json({ ok: false, error: 'config_error', missing: e.missing }, 500);
+    }
+    console.error('[register] unexpected error:', e);
+    return json(
+      { ok: false, error: 'unknown', message: e instanceof Error ? e.message : String(e) },
+      500,
+    );
   }
 
   return json({ ok: true });
