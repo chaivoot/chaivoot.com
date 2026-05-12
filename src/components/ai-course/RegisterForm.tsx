@@ -103,7 +103,7 @@ export default function RegisterForm({ initialPlan = 'group', lineUrl = '#' }: R
                 <h3>คุยกับผู้สอนทาง Line</h3>
                 <p>กดปุ่มข้างล่างเพื่อเพิ่มเพื่อน Line OA — ทีมงานจะติดต่อกลับภายใน 24 ชม.</p>
                 <a className="btn btn-line btn-lg" href={lineUrl} target="_blank" rel="noopener" style={{ marginTop: 8 }}>
-                  {Ico.line} เพิ่ม Line: @ai-class
+                  {Ico.line} เพิ่มเพื่อนใน Line Official
                 </a>
                 <div style={{ fontSize: 12, color: 'var(--fg-faint)', fontFamily: 'var(--font-mono)', marginTop: 8 }}>
                   หรือสแกน QR ที่หน้าร้าน
