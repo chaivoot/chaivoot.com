@@ -740,7 +740,29 @@ html[data-accent="pillar"] {
 }
 .ai-course-page .tour-mockup-wrap {
   width: 100%; max-width: 340px;
+  position: relative;
 }
+.ai-course-page .tour-tap-zone {
+  position: absolute; top: 0; bottom: 0;
+  width: 45%; z-index: 2;
+  background: transparent; border: none; padding: 0;
+  cursor: pointer; appearance: none; font: inherit;
+  display: flex; align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.ai-course-page .tour-tap-zone--left  { left: 0;  justify-content: flex-start; padding-left: 4px; }
+.ai-course-page .tour-tap-zone--right { right: 0; justify-content: flex-end;   padding-right: 4px; }
+.ai-course-page .tour-tap-chev {
+  font-size: 28px; line-height: 1;
+  color: var(--fg-muted); opacity: 0.45;
+  background: rgba(255,255,255,0.85);
+  width: 32px; height: 32px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 1px 4px rgba(20,20,20,0.08);
+  transition: opacity var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
+}
+.ai-course-page .tour-tap-zone:hover .tour-tap-chev { opacity: 0.85; }
+.ai-course-page .tour-tap-zone:active .tour-tap-chev { opacity: 1; transform: scale(0.92); }
 .ai-course-page .tour-step-text {
   width: 100%; max-width: 480px; text-align: center;
 }

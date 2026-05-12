@@ -17,13 +17,16 @@ export function TourModal({ caseData, onClose, registerHref, lineUrl }: TourModa
   const isLast = stepIdx === total - 1;
   const isFirst = stepIdx === 0;
 
+  const goPrev = () => setStepIdx((i) => Math.max(0, i - 1));
+  const goNext = () => setStepIdx((i) => Math.min(total - 1, i + 1));
+
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft' && !isFirst) setStepIdx((i) => i - 1);
-      if (e.key === 'ArrowRight' && !isLast) setStepIdx((i) => i + 1);
+      if (e.key === 'ArrowLeft' && !isFirst) goPrev();
+      if (e.key === 'ArrowRight' && !isLast) goNext();
     };
     window.addEventListener('keydown', onKey);
     return () => {
@@ -44,7 +47,29 @@ export function TourModal({ caseData, onClose, registerHref, lineUrl }: TourModa
       </header>
 
       <div className="tour-modal-body" key={stepIdx}>
-        <div className="tour-mockup-wrap">{step.mockup}</div>
+        <div className="tour-mockup-wrap">
+          {step.mockup}
+          {!isFirst && (
+            <button
+              type="button"
+              className="tour-tap-zone tour-tap-zone--left"
+              onClick={goPrev}
+              aria-label="ย้อนกลับขั้นก่อน"
+            >
+              <span className="tour-tap-chev" aria-hidden="true">‹</span>
+            </button>
+          )}
+          {!isLast && (
+            <button
+              type="button"
+              className="tour-tap-zone tour-tap-zone--right"
+              onClick={goNext}
+              aria-label="ไปขั้นถัดไป"
+            >
+              <span className="tour-tap-chev" aria-hidden="true">›</span>
+            </button>
+          )}
+        </div>
         <div className="tour-step-text">
           <h3 className="tour-step-title">{step.title}</h3>
           <p className="tour-step-desc">{step.desc}</p>
@@ -55,7 +80,7 @@ export function TourModal({ caseData, onClose, registerHref, lineUrl }: TourModa
         <button
           type="button"
           className="tour-nav tour-nav--back"
-          onClick={() => setStepIdx((i) => Math.max(0, i - 1))}
+          onClick={goPrev}
           disabled={isFirst}
         >
           <span aria-hidden="true">←</span> ย้อน
@@ -68,7 +93,7 @@ export function TourModal({ caseData, onClose, registerHref, lineUrl }: TourModa
           <button
             type="button"
             className="tour-nav tour-nav--next"
-            onClick={() => setStepIdx((i) => Math.min(total - 1, i + 1))}
+            onClick={goNext}
           >
             ถัดไป <span aria-hidden="true">→</span>
           </button>
