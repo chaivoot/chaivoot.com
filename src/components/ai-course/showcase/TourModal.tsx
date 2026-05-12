@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import type { ShowcaseCase } from '../../../lib/showcase-cases';
-import { getTourSteps } from './tour-steps';
+import { getPrototype } from './prototypes';
 
 interface TourModalProps {
   caseData: ShowcaseCase;
@@ -9,31 +9,21 @@ interface TourModalProps {
   lineUrl: string;
 }
 
-export function TourModal({ caseData, onClose, registerHref, lineUrl }: TourModalProps) {
-  const steps = getTourSteps(caseData.slug);
-  const [stepIdx, setStepIdx] = useState(0);
-  const total = steps.length;
-  const step = steps[stepIdx];
-  const isLast = stepIdx === total - 1;
-  const isFirst = stepIdx === 0;
-
-  const goPrev = () => setStepIdx((i) => Math.max(0, i - 1));
-  const goNext = () => setStepIdx((i) => Math.min(total - 1, i + 1));
+export function TourModal({ caseData, onClose, registerHref }: TourModalProps) {
+  const prototype = getPrototype(caseData.slug);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft' && !isFirst) goPrev();
-      if (e.key === 'ArrowRight' && !isLast) goNext();
     };
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = prev;
       window.removeEventListener('keydown', onKey);
     };
-  }, [isFirst, isLast, onClose]);
+  }, [onClose]);
 
   return (
     <div className="tour-modal" role="dialog" aria-modal="true" aria-label={`ตัวอย่าง: ${caseData.title}`}>
@@ -41,63 +31,18 @@ export function TourModal({ caseData, onClose, registerHref, lineUrl }: TourModa
         <button type="button" className="tour-close" onClick={onClose} aria-label="ปิด">
           <span aria-hidden="true">×</span>
         </button>
-        <div className="tour-step-count" aria-live="polite">
-          {stepIdx + 1} / {total}
-        </div>
+        <div className="tour-modal-title">{caseData.title}</div>
+        <div className="tour-modal-spacer" aria-hidden="true"></div>
       </header>
 
-      <div className="tour-modal-body" key={stepIdx}>
-        <div className="tour-mockup-wrap">
-          {step.mockup}
-          {!isFirst && (
-            <button
-              type="button"
-              className="tour-tap-zone tour-tap-zone--left"
-              onClick={goPrev}
-              aria-label="ย้อนกลับขั้นก่อน"
-            >
-              <span className="tour-tap-chev" aria-hidden="true">‹</span>
-            </button>
-          )}
-          {!isLast && (
-            <button
-              type="button"
-              className="tour-tap-zone tour-tap-zone--right"
-              onClick={goNext}
-              aria-label="ไปขั้นถัดไป"
-            >
-              <span className="tour-tap-chev" aria-hidden="true">›</span>
-            </button>
-          )}
-        </div>
-        <div className="tour-step-text">
-          <h3 className="tour-step-title">{step.title}</h3>
-          <p className="tour-step-desc">{step.desc}</p>
-        </div>
+      <div className="tour-modal-body">
+        <div className="tour-mockup-wrap">{prototype}</div>
       </div>
 
       <footer className="tour-modal-foot">
-        <button
-          type="button"
-          className="tour-nav tour-nav--back"
-          onClick={goPrev}
-          disabled={isFirst}
-        >
-          <span aria-hidden="true">←</span> ย้อน
-        </button>
-        {isLast ? (
-          <a className="tour-nav tour-nav--cta" href={registerHref}>
-            สมัครเรียน — ทำของแบบนี้เอง
-          </a>
-        ) : (
-          <button
-            type="button"
-            className="tour-nav tour-nav--next"
-            onClick={goNext}
-          >
-            ถัดไป <span aria-hidden="true">→</span>
-          </button>
-        )}
+        <a className="tour-nav tour-nav--cta" href={registerHref}>
+          สมัครเรียน — ทำของแบบนี้เอง
+        </a>
       </footer>
     </div>
   );

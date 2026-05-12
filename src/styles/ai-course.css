@@ -716,8 +716,8 @@ html[data-accent="pillar"] {
 
 .ai-course-page .tour-modal-head {
   flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: var(--s-3) var(--s-4);
+  display: grid; grid-template-columns: 44px 1fr 44px; align-items: center;
+  padding: var(--s-2) var(--s-3);
   border-bottom: 1px solid var(--border-faint);
   background: var(--bg);
 }
@@ -726,52 +726,25 @@ html[data-accent="pillar"] {
   background: transparent; border: none; cursor: pointer;
   font-size: 28px; line-height: 1; color: var(--fg-muted);
   padding: 0; font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 .ai-course-page .tour-close:hover { color: var(--fg); }
-.ai-course-page .tour-step-count {
-  font-size: 13px; font-family: var(--font-mono);
-  color: var(--fg-muted); letter-spacing: 0.04em;
+.ai-course-page .tour-modal-title {
+  font-size: 14px; font-weight: 500; color: var(--fg);
+  text-align: center; letter-spacing: -0.01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.ai-course-page .tour-modal-spacer { width: 44px; }
 
 .ai-course-page .tour-modal-body {
-  flex: 1 1 auto; overflow-y: auto;
-  padding: var(--s-5) var(--s-4) var(--s-5);
-  display: flex; flex-direction: column; align-items: center; gap: var(--s-5);
+  flex: 1 1 auto; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--s-4) var(--s-3);
 }
 .ai-course-page .tour-mockup-wrap {
   width: 100%; max-width: 340px;
-  position: relative;
-}
-.ai-course-page .tour-tap-zone {
-  position: absolute; top: 0; bottom: 0;
-  width: 45%; z-index: 2;
-  background: transparent; border: none; padding: 0;
-  cursor: pointer; appearance: none; font: inherit;
-  display: flex; align-items: center;
-  -webkit-tap-highlight-color: transparent;
-}
-.ai-course-page .tour-tap-zone--left  { left: 0;  justify-content: flex-start; padding-left: 4px; }
-.ai-course-page .tour-tap-zone--right { right: 0; justify-content: flex-end;   padding-right: 4px; }
-.ai-course-page .tour-tap-chev {
-  font-size: 28px; line-height: 1;
-  color: var(--fg-muted); opacity: 0.45;
-  background: rgba(255,255,255,0.85);
-  width: 32px; height: 32px; border-radius: 999px;
-  display: inline-flex; align-items: center; justify-content: center;
-  box-shadow: 0 1px 4px rgba(20,20,20,0.08);
-  transition: opacity var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
-}
-.ai-course-page .tour-tap-zone:hover .tour-tap-chev { opacity: 0.85; }
-.ai-course-page .tour-tap-zone:active .tour-tap-chev { opacity: 1; transform: scale(0.92); }
-.ai-course-page .tour-step-text {
-  width: 100%; max-width: 480px; text-align: center;
-}
-.ai-course-page .tour-step-title {
-  font-size: 18px; font-weight: 500; letter-spacing: -0.01em;
-  line-height: 1.35; margin: 0 0 var(--s-2);
-}
-.ai-course-page .tour-step-desc {
-  font-size: 14px; color: var(--fg-muted); line-height: 1.65; margin: 0;
+  height: 100%;
+  display: flex; align-items: center; justify-content: center;
 }
 
 .ai-course-page .tour-modal-foot {
@@ -783,38 +756,29 @@ html[data-accent="pillar"] {
   background: var(--bg);
 }
 .ai-course-page .tour-nav {
-  flex: 1 1 0; min-height: 48px;
-  border: none; border-radius: 10px;
-  font-size: 14px; font-weight: 500; font-family: inherit;
+  flex: 1 1 0; min-height: 52px;
+  border: none; border-radius: 12px;
+  font-size: 15px; font-weight: 600; font-family: inherit;
   cursor: pointer; text-decoration: none;
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  transition: background var(--dur-quick) var(--ease), color var(--dur-quick) var(--ease);
+  transition: background var(--dur-quick) var(--ease);
 }
-.ai-course-page .tour-nav--back {
-  background: var(--bg-alt); color: var(--fg);
-  flex: 0 0 96px;
-}
-.ai-course-page .tour-nav--back:hover:not(:disabled) { background: #ECEAE2; }
-.ai-course-page .tour-nav--back:disabled { opacity: 0.4; cursor: not-allowed; }
-.ai-course-page .tour-nav--next {
-  background: var(--fg); color: var(--bg);
-}
-.ai-course-page .tour-nav--next:hover { background: #000; }
 .ai-course-page .tour-nav--cta {
-  background: var(--accent); color: #fff; font-weight: 600;
+  background: var(--accent); color: #fff;
 }
 .ai-course-page .tour-nav--cta:hover { background: var(--accent-deep); }
 
 /* ============================================================ */
-/* MOCK PHONE + APP UI (inside tour modal)                      */
+/* MOCK PHONE + APP UI (interactive prototype inside modal)     */
 /* ============================================================ */
 
 .ai-course-page .mock-phone {
-  width: 100%; max-width: 320px; margin: 0 auto;
-  background: #1a1a1a; border-radius: 36px;
-  padding: 8px;
-  box-shadow: 0 10px 28px -8px rgba(20,20,20,0.18), 0 2px 6px rgba(20,20,20,0.06);
+  width: auto; max-width: 320px;
+  height: min(calc(100vh - 200px), 640px);
   aspect-ratio: 9 / 18;
+  background: #1a1a1a; border-radius: 36px; padding: 8px;
+  box-shadow: 0 12px 32px -8px rgba(20,20,20,0.22), 0 2px 6px rgba(20,20,20,0.06);
+  flex-shrink: 0;
 }
 .ai-course-page .mock-phone-screen {
   width: 100%; height: 100%; background: #fff; border-radius: 28px;
@@ -823,56 +787,132 @@ html[data-accent="pillar"] {
 }
 .ai-course-page .mock-statusbar {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 8px 16px 6px; font-size: 10px; font-weight: 600; color: #1a1a1a;
+  padding: 8px 18px 4px; font-size: 10px; font-weight: 600; color: #1a1a1a;
+  flex-shrink: 0;
 }
 .ai-course-page .mock-statusbar-icons { display: flex; gap: 3px; }
 .ai-course-page .mock-sb-dot {
   width: 4px; height: 4px; border-radius: 999px; background: #1a1a1a;
 }
 
-/* App header */
+/* ----- App header ----- */
 .ai-course-page .mock-app-head {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 14px 10px;
+  padding: 6px 12px 8px;
   border-bottom: 1px solid #F0EDE7;
+  flex-shrink: 0;
 }
 .ai-course-page .mock-app-head-left {
-  display: flex; align-items: center; gap: 6px; min-width: 0;
+  display: flex; align-items: center; gap: 4px; min-width: 0;
 }
-.ai-course-page .mock-app-back { color: #6B6B6B; font-size: 14px; }
+.ai-course-page .mock-app-back-btn {
+  width: 26px; height: 26px; border-radius: 999px;
+  background: #F7F6F2; color: #6B6B6B; border: none;
+  font-size: 18px; line-height: 1; font-family: inherit;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 2px 2px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.ai-course-page .mock-app-back-btn:hover { background: #ECEAE2; color: #1a1a1a; }
 .ai-course-page .mock-app-title {
-  font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
+  font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .ai-course-page .mock-icon-btn {
-  width: 24px; height: 24px; border-radius: 999px;
+  width: 26px; height: 26px; border-radius: 999px;
   background: #F4EBE0; color: #6E3F2A;
-  font-size: 14px; font-weight: 600;
+  font-size: 16px; font-weight: 500;
   display: inline-flex; align-items: center; justify-content: center;
 }
 
-/* Search bar */
+/* ----- App body + scroll area ----- */
+.ai-course-page .mock-app-body {
+  flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column;
+}
+.ai-course-page .mock-scroll {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 10px 0;
+  -webkit-overflow-scrolling: touch;
+}
+.ai-course-page .mock-scroll::-webkit-scrollbar { width: 0; }
+
+/* ----- Bottom tab bar (inside phone) ----- */
+.ai-course-page .mock-tabbar {
+  flex-shrink: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #F0EDE7;
+  background: #fff;
+  padding: 4px 2px 6px;
+}
+.ai-course-page .mock-tabbar-btn {
+  background: transparent; border: none; cursor: pointer;
+  font-family: inherit;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 4px 2px; border-radius: 8px;
+  color: #9A9A9A;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-quick) var(--ease), color var(--dur-quick) var(--ease);
+}
+.ai-course-page .mock-tabbar-btn--on { color: #6E3F2A; }
+.ai-course-page .mock-tabbar-btn:hover { background: #F7F6F2; }
+.ai-course-page .mock-tabbar-icon { font-size: 16px; line-height: 1; }
+.ai-course-page .mock-tabbar-label { font-size: 9px; font-weight: 500; }
+
+/* ----- KPI row (top of list) ----- */
+.ai-course-page .mock-kpi-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 6px; padding: 8px 12px 4px;
+  flex-shrink: 0;
+}
+.ai-course-page .mock-kpi {
+  background: #F7F6F2; border-radius: 10px;
+  padding: 8px 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.ai-course-page .mock-kpi--accent { background: #F4EBE0; }
+.ai-course-page .mock-kpi--good   { background: #E5F0E8; }
+.ai-course-page .mock-kpi-num {
+  font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: #1a1a1a;
+}
+.ai-course-page .mock-kpi--accent .mock-kpi-num { color: #6E3F2A; }
+.ai-course-page .mock-kpi--good   .mock-kpi-num { color: #2F6B43; }
+.ai-course-page .mock-kpi-label { font-size: 9px; color: #6B6B6B; }
+
+/* ----- Search ----- */
 .ai-course-page .mock-search {
-  margin: 8px 14px 4px;
-  padding: 6px 10px; border-radius: 8px;
+  margin: 4px 12px 0;
+  padding: 6px 10px; border-radius: 10px;
   background: #F7F6F2; color: #9A9A9A; font-size: 11px;
   display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0;
 }
 
-/* List rows */
+/* ----- List ----- */
 .ai-course-page .mock-list {
-  list-style: none; padding: 4px 0; margin: 0;
-  overflow-y: auto; flex: 1 1 auto;
+  list-style: none; padding: 4px 0 8px; margin: 0;
+  overflow-y: auto; flex: 1 1 auto; min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
+.ai-course-page .mock-list::-webkit-scrollbar { width: 0; }
 .ai-course-page .mock-list-row {
+  width: 100%;
   display: flex; align-items: center; gap: 10px;
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-bottom: 1px solid #F7F6F2;
 }
+.ai-course-page .mock-list-row--btn {
+  background: transparent; border: none; font-family: inherit;
+  cursor: pointer; text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-quick) var(--ease);
+}
+.ai-course-page .mock-list-row--btn:hover  { background: #FBFAF7; }
+.ai-course-page .mock-list-row--btn:active { background: #F4EBE0; }
 .ai-course-page .mock-avatar {
-  width: 30px; height: 30px; border-radius: 999px;
+  width: 32px; height: 32px; border-radius: 999px;
   background: #F4EBE0; color: #6E3F2A;
-  font-size: 12px; font-weight: 600;
+  font-size: 13px; font-weight: 600;
   display: inline-flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -884,125 +924,180 @@ html[data-accent="pillar"] {
   min-width: 0; flex: 1;
 }
 .ai-course-page .mock-list-name {
-  font-size: 12px; font-weight: 500;
+  font-size: 12px; font-weight: 500; color: #1a1a1a;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .ai-course-page .mock-list-status { font-size: 10px; color: #6B6B6B; }
 .ai-course-page .mock-list-status--down { color: #2F6B43; }
 .ai-course-page .mock-list-status--warn { color: #8C4319; }
-.ai-course-page .mock-list-chev { color: #9A9A9A; font-size: 14px; }
+.ai-course-page .mock-list-chev { color: #9A9A9A; font-size: 16px; flex-shrink: 0; }
 
-/* Section labels */
+/* ----- Sparkline ----- */
+.ai-course-page .mock-spark {
+  width: 48px; height: 16px; flex-shrink: 0;
+  stroke: #6B6B6B;
+}
+.ai-course-page .mock-spark--down { stroke: #2F6B43; }
+.ai-course-page .mock-spark--up   { stroke: #8C4319; }
+
+/* ----- Section labels ----- */
 .ai-course-page .mock-section-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
   color: #9A9A9A; text-transform: uppercase;
-  padding: 12px 14px 6px;
+  padding: 6px 14px 4px;
 }
 .ai-course-page .mock-section-label--accent { color: #6E3F2A; }
 
-/* Profile grid */
-.ai-course-page .mock-row-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: #F0EDE7;
-  margin: 0 14px; border-radius: 8px; overflow: hidden;
-  border: 1px solid #F0EDE7;
+/* ----- Ring chart ----- */
+.ai-course-page .mock-ring {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
 }
-.ai-course-page .mock-data-cell {
-  background: #fff; padding: 8px 10px;
+.ai-course-page .mock-ring--sm { width: 80px;  height: 80px; }
+.ai-course-page .mock-ring--md { width: 110px; height: 110px; }
+.ai-course-page .mock-ring--lg { width: 140px; height: 140px; }
+.ai-course-page .mock-ring-svg { width: 100%; height: 100%; transform: rotate(0deg); }
+.ai-course-page .mock-ring-text {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.ai-course-page .mock-ring-big {
+  font-size: 30px; font-weight: 600; letter-spacing: -0.03em; color: #1a1a1a;
+  line-height: 1;
+}
+.ai-course-page .mock-ring-big small { font-size: 14px; font-weight: 500; }
+.ai-course-page .mock-ring-label {
+  font-size: 10px; color: #6B6B6B; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.ai-course-page .mock-ring-hero {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 4px 12px 8px;
+}
+.ai-course-page .mock-zone-tag {
+  font-size: 10px; font-weight: 500;
+  padding: 4px 10px; border-radius: 999px;
+}
+.ai-course-page .mock-zone-tag--warn   { background: #FBE9DA; color: #8C4319; }
+.ai-course-page .mock-zone-tag--accent { background: #F4EBE0; color: #6E3F2A; }
+
+/* ----- Pill row (compact data) ----- */
+.ai-course-page .mock-pill-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 4px; padding: 6px 12px 0;
+}
+.ai-course-page .mock-pill {
+  background: #F7F6F2; border-radius: 8px;
+  padding: 6px 4px;
+  font-size: 12px; font-weight: 600; color: #1a1a1a; text-align: center;
   display: flex; flex-direction: column; gap: 2px;
 }
-.ai-course-page .mock-data-label { font-size: 10px; color: #6B6B6B; }
-.ai-course-page .mock-data-value {
-  font-size: 14px; font-weight: 500; letter-spacing: -0.01em;
-}
-.ai-course-page .mock-data-value small { font-size: 10px; color: #6B6B6B; font-weight: 400; }
-
-/* Calc card */
-.ai-course-page .mock-calc-card {
-  margin: 0 14px 12px; padding: 8px 10px;
-  background: #F4EBE0; border-radius: 8px;
-  display: flex; flex-direction: column; gap: 6px;
-}
-.ai-course-page .mock-calc-row {
-  display: grid; grid-template-columns: 70px 1fr auto;
-  align-items: baseline; gap: 6px;
-  font-size: 11px;
-}
-.ai-course-page .mock-calc-row--hi {
-  padding-top: 6px; margin-top: 2px;
-  border-top: 1px dashed #D7C0AB;
-}
-.ai-course-page .mock-calc-label { font-size: 11px; color: #6E3F2A; font-weight: 500; }
-.ai-course-page .mock-calc-value {
-  font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
-  color: #1a1a1a;
-}
-.ai-course-page .mock-calc-row--hi .mock-calc-value { color: #6E3F2A; }
-.ai-course-page .mock-calc-unit { font-size: 10px; color: #6B6B6B; }
-.ai-course-page .mock-calc-tag {
-  font-size: 9px; padding: 2px 6px; border-radius: 999px;
-  background: #FBE9DA; color: #8C4319;
+.ai-course-page .mock-pill small {
+  font-size: 9px; font-weight: 500; color: #6B6B6B;
+  letter-spacing: 0.04em;
 }
 
-/* Measurements */
+/* ----- Tile row ----- */
+.ai-course-page .mock-tile-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6px; padding: 0 12px;
+}
+.ai-course-page .mock-tile-row--three { grid-template-columns: repeat(3, 1fr); }
+.ai-course-page .mock-tile {
+  background: #F7F6F2; border-radius: 10px;
+  padding: 8px 8px 10px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.ai-course-page .mock-tile--accent { background: #F4EBE0; }
+.ai-course-page .mock-tile-label {
+  font-size: 9px; color: #6B6B6B; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.ai-course-page .mock-tile-num {
+  font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: #1a1a1a;
+}
+.ai-course-page .mock-tile--accent .mock-tile-num { color: #6E3F2A; }
+.ai-course-page .mock-tile-unit { font-size: 9px; color: #6B6B6B; }
+
+/* ----- Tip text ----- */
+.ai-course-page .mock-tip {
+  font-size: 10px; color: #9A9A9A; text-align: center;
+  padding: 6px 14px;
+}
+
+/* ----- Measurements grid ----- */
 .ai-course-page .mock-meta-line {
-  padding: 8px 14px 4px;
+  padding: 4px 14px;
   font-size: 11px; color: #6B6B6B;
 }
-.ai-course-page .mock-measure-list {
-  list-style: none; padding: 4px 0; margin: 0;
+.ai-course-page .mock-card-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6px; padding: 0 12px;
 }
-.ai-course-page .mock-measure-row {
-  display: grid; grid-template-columns: 1fr auto 50px;
-  align-items: baseline; gap: 8px;
-  padding: 10px 14px; border-bottom: 1px solid #F7F6F2;
+.ai-course-page .mock-meas-card {
+  background: #F7F6F2; border-radius: 10px;
+  padding: 8px 10px;
+  display: flex; flex-direction: column; gap: 2px;
 }
-.ai-course-page .mock-measure-label { font-size: 12px; color: #1a1a1a; }
-.ai-course-page .mock-measure-val {
-  font-size: 14px; font-weight: 600; text-align: right;
-  letter-spacing: -0.01em;
+.ai-course-page .mock-meas-label {
+  font-size: 10px; color: #6B6B6B; font-weight: 500;
+  letter-spacing: 0.04em;
 }
-.ai-course-page .mock-measure-val small { font-size: 10px; font-weight: 400; color: #6B6B6B; }
-.ai-course-page .mock-measure-delta {
-  font-size: 11px; text-align: right;
+.ai-course-page .mock-meas-val {
+  font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #1a1a1a;
 }
-.ai-course-page .mock-measure-delta--down { color: #2F6B43; }
-.ai-course-page .mock-measure-delta--up { color: #2F6B43; }
+.ai-course-page .mock-meas-val small {
+  font-size: 10px; font-weight: 400; color: #6B6B6B; margin-left: 2px;
+}
+.ai-course-page .mock-meas-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 4px;
+}
+.ai-course-page .mock-meas-delta {
+  font-size: 11px; font-weight: 500;
+}
+.ai-course-page .mock-meas-delta--down { color: #2F6B43; }
+.ai-course-page .mock-meas-delta--up   { color: #2F6B43; }
 
-.ai-course-page .mock-btn-row {
-  padding: 12px 14px; margin-top: auto;
+/* ----- Body fat bar ----- */
+.ai-course-page .mock-bodyfat {
+  background: #F7F6F2; border-radius: 10px;
+  margin: 0 12px;
+  padding: 10px 12px 8px;
+  display: flex; flex-direction: column; gap: 6px;
 }
-.ai-course-page .mock-btn {
-  display: block; width: 100%;
-  padding: 10px; border-radius: 8px;
-  font-size: 12px; font-weight: 500; text-align: center;
-}
-.ai-course-page .mock-btn--primary { background: #1a1a1a; color: #fff; }
-
-/* Goal */
-.ai-course-page .mock-goal-block {
-  margin: 12px 14px;
-  background: #F7F6F2; border-radius: 12px;
-  padding: 12px;
-  display: flex; flex-direction: column; gap: 4px; align-items: center;
-}
-.ai-course-page .mock-goal-row {
+.ai-course-page .mock-bodyfat-head {
   display: flex; align-items: baseline; justify-content: space-between;
-  width: 100%; padding: 2px 4px;
 }
-.ai-course-page .mock-goal-label { font-size: 11px; color: #6B6B6B; }
-.ai-course-page .mock-goal-num {
-  font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+.ai-course-page .mock-bodyfat-val {
+  font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: #1a1a1a;
 }
-.ai-course-page .mock-goal-num small { font-size: 10px; font-weight: 400; color: #6B6B6B; }
-.ai-course-page .mock-goal-arrow {
-  color: #B5754D; font-size: 14px;
+.ai-course-page .mock-bodyfat-val small { font-size: 11px; font-weight: 500; color: #6B6B6B; }
+.ai-course-page .mock-bodyfat-bar {
+  position: relative; height: 8px; border-radius: 999px; overflow: hidden;
+  display: grid; grid-template-columns: 32% 36% 32%;
 }
-.ai-course-page .mock-goal-row--target .mock-goal-num { color: #6E3F2A; }
+.ai-course-page .mock-bodyfat-zone--lean { background: #BBD8C2; }
+.ai-course-page .mock-bodyfat-zone--ok   { background: #E8D8A8; }
+.ai-course-page .mock-bodyfat-zone--high { background: #E6A88A; }
+.ai-course-page .mock-bodyfat-marker {
+  position: absolute; top: -3px;
+  width: 4px; height: 14px; border-radius: 2px;
+  background: #1a1a1a;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 2px #fff;
+}
+.ai-course-page .mock-bodyfat-legend {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: #6B6B6B;
+}
 
+/* ----- Plan card ----- */
 .ai-course-page .mock-plan-card {
-  margin: 0 14px 12px;
-  display: flex; flex-direction: column; gap: 8px;
+  margin: 0 12px;
+  display: flex; flex-direction: column; gap: 6px;
 }
 .ai-course-page .mock-plan-row {
   display: flex; align-items: flex-start; gap: 8px;
@@ -1010,48 +1105,85 @@ html[data-accent="pillar"] {
   border: 1px solid #F0EDE7;
   font-size: 11px; line-height: 1.5;
 }
-.ai-course-page .mock-plan-icon { font-size: 14px; }
+.ai-course-page .mock-plan-icon { font-size: 14px; line-height: 1.3; }
 .ai-course-page .mock-plan-text { flex: 1; color: #1a1a1a; }
 .ai-course-page .mock-plan-text strong { color: #6E3F2A; font-weight: 600; }
 
-/* Progress chart */
+/* ----- Chart ----- */
 .ai-course-page .mock-tabs {
   display: flex; gap: 4px;
-  padding: 10px 14px 8px;
+  padding: 4px 12px 6px;
 }
 .ai-course-page .mock-tab {
   padding: 4px 10px; border-radius: 999px;
   font-size: 11px; color: #6B6B6B;
-  background: #F7F6F2;
+  background: #F7F6F2; border: none; font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-quick) var(--ease), color var(--dur-quick) var(--ease);
 }
+.ai-course-page .mock-tab:hover { background: #ECEAE2; }
 .ai-course-page .mock-tab--on { background: #1a1a1a; color: #fff; font-weight: 500; }
+.ai-course-page .mock-tab--on:hover { background: #1a1a1a; }
 
 .ai-course-page .mock-chart-wrap {
-  margin: 4px 14px;
-  background: #FBFAF7; border-radius: 8px;
+  margin: 0 12px;
+  background: #FBFAF7; border-radius: 10px;
   border: 1px solid #F0EDE7;
   padding: 10px;
 }
-.ai-course-page .mock-chart-svg {
-  width: 100%; height: 100px; display: block;
+.ai-course-page .mock-chart-title {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 6px;
 }
+.ai-course-page .mock-chart-title > span:first-child {
+  font-size: 11px; color: #6B6B6B; font-weight: 500;
+}
+.ai-course-page .mock-chart-delta {
+  font-size: 12px; font-weight: 600; color: #2F6B43;
+}
+.ai-course-page .mock-chart-svg { width: 100%; height: 100px; display: block; }
 .ai-course-page .mock-chart-axis {
   display: flex; justify-content: space-between;
   font-size: 9px; color: #9A9A9A; margin-top: 4px;
   padding: 0 2px;
 }
 
-.ai-course-page .mock-stat-row {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 8px; margin: 12px 14px;
+/* ----- Composition donut ----- */
+.ai-course-page .mock-composition {
+  display: grid; grid-template-columns: 110px 1fr;
+  gap: 10px; align-items: center;
+  margin: 0 12px;
+  background: #FBFAF7; border-radius: 10px;
+  border: 1px solid #F0EDE7;
+  padding: 10px;
 }
-.ai-course-page .mock-stat-cell {
-  background: #F4EBE0; border-radius: 8px;
-  padding: 8px 4px; text-align: center;
-  display: flex; flex-direction: column; gap: 2px;
+.ai-course-page .mock-composition-svg { width: 100%; height: auto; display: block; }
+.ai-course-page .mock-composition-legend {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 4px;
 }
-.ai-course-page .mock-stat-num {
-  font-size: 14px; font-weight: 600; letter-spacing: -0.02em; color: #6E3F2A;
+.ai-course-page .mock-composition-legend li {
+  display: grid; grid-template-columns: 10px 1fr auto;
+  gap: 6px; align-items: center;
+  font-size: 11px;
 }
-.ai-course-page .mock-stat-num small { font-size: 9px; font-weight: 400; margin-left: 1px; }
-.ai-course-page .mock-stat-label { font-size: 9px; color: #6B6B6B; }
+.ai-course-page .mock-comp-swatch {
+  width: 10px; height: 10px; border-radius: 2px;
+}
+.ai-course-page .mock-comp-label { color: #1a1a1a; }
+.ai-course-page .mock-comp-val   { color: #6B6B6B; font-weight: 600; }
+
+/* ----- Button (inside app) ----- */
+.ai-course-page .mock-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 16px; border-radius: 10px;
+  font-size: 12px; font-weight: 500; font-family: inherit;
+  border: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-quick) var(--ease);
+}
+.ai-course-page .mock-btn--primary { background: #1a1a1a; color: #fff; }
+.ai-course-page .mock-btn--primary:hover { background: #000; }
+.ai-course-page .mock-btn--full { width: calc(100% - 24px); margin: 4px 12px 8px; }
+
