@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PhoneShell, AppHeader, type Brand } from './shared';
 
 const BRAND: Brand = { letter: 'ด', name: 'ดวงดี', sub: 'by อาจารย์ภานุ' };
@@ -184,8 +184,32 @@ const JEWELRY = [
 ];
 
 function LuckyView() {
+  // Detect today's weekday client-side so the prototype always feels alive.
+  // SSR runs at build time so we defer detection to useEffect — avoids
+  // 'วันนี้วัน[stale]' if the build happened on a different day.
+  const [todayIdx, setTodayIdx] = useState<number | null>(null);
+  useEffect(() => {
+    const d = new Date().getDay(); // 0=Sun ... 6=Sat
+    // WEEKDAY_COLORS is จันทร์-first (0..6 = Mon..Sun)
+    setTodayIdx(d === 0 ? 6 : d - 1);
+  }, []);
+  const today = todayIdx !== null ? WEEKDAY_COLORS[todayIdx] : null;
+
   return (
     <div className="mock-scroll">
+      {today && (
+        <div className="mock-today-card">
+          <span className="mock-today-eyebrow">วันนี้ · วัน{today.day}</span>
+          <div className="mock-today-row">
+            <span className="mock-today-swatch" style={{ background: today.hex }} aria-hidden="true"></span>
+            <div className="mock-today-text">
+              <span className="mock-today-name">{today.color}</span>
+              <span className="mock-today-hint">สีเสื้อที่ควรใส่</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mock-section-label">สีถูกโฉลก 5 สี</div>
       <ul className="mock-color-grid">
         {LUCKY_COLORS.map((c) => (
@@ -198,11 +222,12 @@ function LuckyView() {
 
       <div className="mock-section-label mock-section-label--accent">สีเสื้อทั้ง 7 วัน</div>
       <ul className="mock-weekday-list">
-        {WEEKDAY_COLORS.map((d) => (
-          <li key={d.day} className="mock-weekday-row">
+        {WEEKDAY_COLORS.map((d, i) => (
+          <li key={d.day} className={`mock-weekday-row ${i === todayIdx ? 'mock-weekday-row--today' : ''}`}>
             <span className="mock-weekday-name">{d.day}</span>
             <span className="mock-weekday-swatch" style={{ background: d.hex }} aria-hidden="true"></span>
             <span className="mock-weekday-color">{d.color}</span>
+            {i === todayIdx && <span className="mock-weekday-today">วันนี้</span>}
           </li>
         ))}
       </ul>
