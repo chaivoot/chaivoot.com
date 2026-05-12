@@ -181,6 +181,10 @@ html[data-accent="pillar"] {
   letter-spacing: -0.03em; color: var(--accent);
   line-height: 1; margin-bottom: 8px;
 }
+.ai-course-page .stat-unit {
+  font-size: 0.45em; font-weight: 400; letter-spacing: 0;
+  margin-left: 0.15em; color: var(--fg-muted);
+}
 .ai-course-page .stat-l { font-size: 13px; color: var(--fg-muted); line-height: 1.5; }
 @media (max-width: 640px) {
   .ai-course-page .stats-grid { grid-template-columns: 1fr; gap: var(--s-4); }
