@@ -5,11 +5,9 @@ import { getPrototype } from './prototypes';
 interface TourModalProps {
   caseData: ShowcaseCase;
   onClose: () => void;
-  registerHref: string;
-  lineUrl: string;
 }
 
-export function TourModal({ caseData, onClose, registerHref }: TourModalProps) {
+export function TourModal({ caseData, onClose }: TourModalProps) {
   const prototype = getPrototype(caseData.slug);
 
   useEffect(() => {
@@ -34,10 +32,6 @@ export function TourModal({ caseData, onClose, registerHref }: TourModalProps) {
       <button type="button" className="tour-close-float" onClick={onClose} aria-label="ปิด">
         <span aria-hidden="true">×</span>
       </button>
-
-      <a className="tour-cta-float" href={registerHref}>
-        สมัครเรียน <span aria-hidden="true">→</span>
-      </a>
     </div>
   );
 }

@@ -2,12 +2,7 @@ import { useState } from 'react';
 import { SHOWCASE_CASES, type ShowcaseCase } from '../../../lib/showcase-cases';
 import { TourModal } from './TourModal';
 
-interface ShowcaseGridProps {
-  registerHref?: string;
-  lineUrl?: string;
-}
-
-export function ShowcaseGrid({ registerHref = '/ai-course#pricing', lineUrl = '#' }: ShowcaseGridProps) {
+export function ShowcaseGrid() {
   const [activeCase, setActiveCase] = useState<ShowcaseCase | null>(null);
 
   return (
@@ -33,12 +28,7 @@ export function ShowcaseGrid({ registerHref = '/ai-course#pricing', lineUrl = '#
       </div>
 
       {activeCase && (
-        <TourModal
-          caseData={activeCase}
-          onClose={() => setActiveCase(null)}
-          registerHref={registerHref}
-          lineUrl={lineUrl}
-        />
+        <TourModal caseData={activeCase} onClose={() => setActiveCase(null)} />
       )}
     </>
   );
