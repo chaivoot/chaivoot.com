@@ -1,0 +1,31 @@
+---
+const items = [
+  { t: 'เริ่มจากศูนย์ ทำเว็บแอปแรกได้ใน 1 วัน',     d: 'ตั้งแต่ความคิด → โค้ด → เปิดเว็บออนไลน์ให้คนใช้จริง' },
+  { t: 'คุยกับ AI ให้รู้เรื่อง ใช้คำพูดคนปกติ',     d: 'บอกความต้องการเป็นภาษาไทยธรรมดา ไม่ต้องท่องคำสั่ง' },
+  { t: 'เชื่อมเว็บแอปเข้ากับ Line OA ของลูกค้า',    d: 'ใช้ Rich Menu เป็นทางลัด ลูกค้ากดเดียวเข้าใช้งานได้' },
+  { t: 'แก้เอง อัปเดตเอง ไม่ต้องจ้างใครเพิ่ม',     d: 'พอจบคอร์ส คุณจะคุยกับ AI ต่อเองได้ตลอดไป' },
+  { t: 'Deploy ขึ้นออนไลน์ฟรี ไม่ต้องเช่า server แพง', d: 'ใช้บริการฟรีอย่าง Vercel / Supabase เริ่มต้น 0 บาท' },
+];
+---
+<section id="learn">
+  <div class="wrap">
+    <div class="section-head" style="text-align: center;">
+      <div class="eyebrow-mono">สิ่งที่จะได้</div>
+      <h2>หลังเรียนจบ คุณจะทำสิ่งเหล่านี้ได้</h2>
+      <p>เน้นทำได้จริง ไม่ใช่แค่ฟังเข้าใจ — จบคอร์สมีเว็บแอปของตัวเองออนไลน์ 1 ตัว</p>
+    </div>
+    <ul class="solution">
+      {items.map((it) => (
+        <li>
+          <span class="check">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7.5 5.5 10.5 11.5 4"/></svg>
+          </span>
+          <div>
+            <div class="solution-title">{it.t}</div>
+            <div class="solution-desc">{it.d}</div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

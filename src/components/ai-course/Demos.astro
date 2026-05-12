@@ -1,0 +1,34 @@
+---
+import DemoQuiz from './DemoQuiz.tsx';
+import DemoDogHealth from './DemoDogHealth.tsx';
+---
+<section id="demos" style="background: var(--bg-alt); border-radius: 0;">
+  <div class="wrap">
+    <div class="section-head" style="text-align: center;">
+      <div class="eyebrow-mono">ตัวอย่างจริง</div>
+      <h2>ผู้เรียนทำเว็บแอปแบบนี้ได้</h2>
+      <p>ทั้งสองตัวอย่างนี้ใช้เวลาทำไม่ถึง 1 วัน เริ่มจากศูนย์ — ไม่มีโค้ดเขียนเอง</p>
+    </div>
+    <div class="demos">
+      <div class="demo-card">
+        <div class="demo-frame-wrap">
+          <DemoQuiz client:visible />
+        </div>
+        <div class="demo-caption">
+          <strong>ลองเล่นได้จริง — Quiz: คุณเป็นผู้ใช้ AI แบบไหน?</strong>
+          ตัวอย่างเว็บแอป Quiz ที่ลูกค้าตอบสั้นๆ → ระบบให้ผลลัพธ์เป็นกราฟ + คำแนะนำ พร้อม CTA ปิดการขายพลอยที่เหมาะ → ส่งต่อให้ทักทาย Line OA ของร้านเพื่อสั่งทำ
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-frame-wrap">
+          <DemoDogHealth client:visible />
+        </div>
+        <div class="demo-caption">
+          <strong>ระบบเก็บข้อมูลสุขภาพน้องหมา</strong>
+          บันทึกน้ำหนัก · BCS · สูตรอาหาร · พลังงานต่อวัน → เจ้าของเห็นกราฟยาวๆ → ปรึกษาสัตวแพทย์/นักโภชนาการได้แม่นยำขึ้น
+        </div>
+      </div>
+    </div>
+    <div class="demos-note">ตัวอย่างเหล่านี้ใช้เวลาทำไม่ถึง 1 วัน</div>
+  </div>
+</section>

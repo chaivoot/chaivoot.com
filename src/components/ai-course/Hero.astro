@@ -1,0 +1,44 @@
+---
+interface Props {
+  lineUrl?: string;
+}
+const { lineUrl = '#' } = Astro.props;
+---
+<section class="hero fade-in" id="top">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    <span>เว็บนี้ก็สร้างด้วย AI — อยากทำเองได้ อ่านต่อ</span>
+  </div>
+  <h1 class="hero-h1-big">
+    <span class="hero-line-kicker">คอร์สจับมือทำ</span>
+    <span class="hero-line-main">
+      <span class="hero-line">ไม่ต้องเขียนโค้ด ก็สร้าง</span>{' '}
+      <span class="hero-line"><span class="accent-mark">Web&nbsp;App</span> ได้</span>
+    </span>
+    <span class="hero-line-tail">ภายใน 2 วัน</span>
+  </h1>
+  <p class="hero-sub">
+    1–2 วัน นั่งทำไปด้วยกัน คุยกับ AI สร้างเว็บแอปของธุรกิจคุณเองได้จริง — ไม่ต้องเขียนโค้ดสักบรรทัด
+  </p>
+  <div class="hero-ctas">
+    <a class="btn btn-primary btn-xl" href="#register">
+      จองที่นั่ง รุ่นต่อไป
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a class="btn btn-line btn-xl" href={lineUrl} target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M18 6c-7.2 0-13 4.6-13 10.3 0 5.2 4.6 9.5 10.9 10.2.4 0 1 .3 1.1.6.1.3.1.7 0 1l-.2 1c-.1.3-.3 1.2 1.1.7 1.4-.6 7.4-4.4 10-7.5 1.8-2 2.7-4 2.7-6 0-5.7-5.8-10.3-13-10.3z" fill="currentColor"/></svg>
+      ทักไลน์ ถามได้ก่อนสมัคร
+    </a>
+  </div>
+  <ul class="hero-bullets">
+    <li><span class="hero-bullet-tick">✓</span> เริ่มจากศูนย์ ไม่มีพื้นฐานก็เรียนได้</li>
+    <li><span class="hero-bullet-tick">✓</span> จบคอร์สมีเว็บแอปจริงใช้งานได้</li>
+    <li><span class="hero-bullet-tick">✓</span> คุยกับ AI ต่อเองได้ตลอด ไม่ต้องพึ่งใคร</li>
+  </ul>
+  <div class="hero-note">
+    <span style="font-size: 16px; line-height: 1; margin-top: 2px;">↑</span>
+    <span>
+      <strong>หน้านี้ทั้งหน้านี้</strong> เขียนด้วย AI ในเวลาน้อยกว่าครึ่งวัน — ถ้าคุณก็อยากทำของตัวเองได้บ้าง มาคุยกัน
+    </span>
+  </div>
+</section>

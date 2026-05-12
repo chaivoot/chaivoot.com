@@ -1,0 +1,28 @@
+---
+const items = [
+  { label: 'ระยะเวลา',           valueHtml: '<strong>1–2 วัน</strong> hands-on จับมือทำของจริง' },
+  { label: 'สิ่งที่ต้องเตรียม',    valueHtml: 'โน้ตบุ๊ก 1 เครื่อง ไม่ต้องลงโปรแกรมอะไรเพิ่ม' },
+  { label: 'กลับบ้านพร้อม',      valueHtml: 'เว็บแอปของตัวเอง <strong>1 ตัว</strong> ขึ้นออนไลน์เรียบร้อย + ทักษะคุยกับ AI ต่อเอง' },
+  { label: 'หลังจบคอร์ส',        valueHtml: 'ช่วยเหลือเป็น<strong>น้ำใจ</strong> ไม่ใช่ภาระสัญญา ติดตรงไหนทักได้' },
+  { label: 'ค่าใช้จ่ายต่อเนื่อง',  valueHtml: 'เฉพาะค่า AI รายเดือนเล็กน้อย (เริ่มต้นใช้ฟรีได้)' },
+  { label: 'เหมาะกับใคร',        valueHtml: 'เจ้าของกิจการ SME / พ่อแม่ที่อยากให้ลูกได้ลอง / ลูกหลานที่ดูแลผู้สูงวัย' },
+];
+---
+<section id="format" style="background: var(--bg-alt);">
+  <div class="wrap">
+    <div class="section-head" style="text-align: center;">
+      <div class="eyebrow-mono">รูปแบบคอร์ส</div>
+      <h2>เรียนสบายๆ ในจังหวะคนทำงานจริง</h2>
+    </div>
+    <div class="format-wrap" style="background: var(--bg);">
+      <div class="format-grid">
+        {items.map((it) => (
+          <div class="format-item">
+            <div class="label">{it.label}</div>
+            <div class="value" set:html={it.valueHtml}></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+---
+import Nav from '../components/Nav.astro';
+import CourseFooter from '../components/ai-course/Footer.astro';
+import { SITE } from '../lib/site';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/ai-course.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = SITE.description } = Astro.props;
+---
+<!doctype html>
+<html lang="th" data-accent="warm">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  {SITE.gscVerify && (
+    <meta name="google-site-verification" content={SITE.gscVerify} />
+  )}
+  {import.meta.env.PROD && SITE.gaId && (
+    <Fragment>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`} is:inline></script>
+      <script is:inline define:vars={{ gaId: SITE.gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </Fragment>
+  )}
+</head>
+<body class="ai-course-page">
+  <Nav />
+  <main>
+    <slot />
+  </main>
+  <CourseFooter lineUrl={SITE.lineUrl} />
+</body>
+</html>

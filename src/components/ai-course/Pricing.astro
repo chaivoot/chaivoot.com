@@ -1,0 +1,53 @@
+---
+const plans = [
+  {
+    icon: '📚', kind: 'group', tag: 'Group Class',
+    meta: '6–8 คน · 2 วัน',
+    now: '6,900', old: '12,900', save: '6,000฿',
+    desc: 'เรียนเป็นกลุ่ม สนุก ได้เพื่อนใหม่',
+    cta: 'สมัคร Group Class',
+    highlight: true,
+  },
+  {
+    icon: '👤', kind: 'private', tag: 'คลาสส่วนตัว',
+    meta: 'เฉพาะคุณ · 2 วัน',
+    now: '15,000', old: '25,000', save: '10,000฿',
+    desc: 'จับมือทำส่วนตัว ตอบโจทย์ของคุณเอง',
+    cta: 'จองคิวคลาสส่วนตัว',
+    highlight: false,
+  },
+];
+---
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head" style="text-align: center;">
+      <div class="eyebrow-mono">🎉 รุ่นเปิดตัว — ราคาพิเศษ</div>
+      <h2>เลือกแบบที่เหมาะกับคุณ</h2>
+    </div>
+    <div class="pricing-grid">
+      {plans.map((p) => (
+        <div class:list={['plan-card', { 'plan-highlight': p.highlight }]}>
+          {p.highlight && <div class="plan-flag">แนะนำ</div>}
+          <div class="plan-head">
+            <span class="plan-icon">{p.icon}</span>
+            <div class="plan-tag">{p.tag}</div>
+            <div class="plan-meta">{p.meta}</div>
+          </div>
+          <div class="plan-prices">
+            <div class="plan-now">{p.now}<span class="baht">฿</span></div>
+            <div class="plan-old"><span class="plan-old-label">ปกติ</span><span>{p.old}฿</span></div>
+            <div class="plan-save">ประหยัด {p.save}</div>
+          </div>
+          <p class="plan-desc">{p.desc}</p>
+          <a class="btn btn-primary btn-xl plan-cta" href="#register">
+            {p.cta}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      ))}
+    </div>
+    <div class="pricing-note" style="margin-top: 24px; text-align: center;">
+      ทั้งสองแบบรวม: ได้เว็บแอปจริง 1 ตัว · Line group ถามตอบ 30 วันหลังคลาส
+    </div>
+  </div>
+</section>

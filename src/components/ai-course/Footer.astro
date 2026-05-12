@@ -1,0 +1,28 @@
+---
+interface Props {
+  lineUrl?: string;
+  email?: string;
+}
+const { lineUrl = '#', email = 'hello@example.com' } = Astro.props;
+---
+<footer class="course-footer">
+  <div class="foot-inner">
+    <div>
+      <div class="foot-wm">
+        <img src="/logo-mark-light.svg" alt="" width="24" height="24" />
+        <span>คอร์ส AI Web App</span>
+      </div>
+      <div class="foot-meta" style="margin-top: 10px;">
+        สอนโดย ครูวุฒิ
+      </div>
+    </div>
+    <div class="foot-meta" style="text-align: right;">
+      <div>อีเมล: <a href={`mailto:${email}`}>{email}</a></div>
+      <div>Line OA: <a href={lineUrl} target="_blank" rel="noopener">@ai-class</a></div>
+      <div>© 2026 chaivoot</div>
+    </div>
+  </div>
+  <div class="foot-built">
+    <strong>เว็บนี้สร้างด้วย Claude + Claude Code</strong> — ถ้าคุณก็อยากทำเองได้แบบนี้ <a href="#register" style="text-decoration: underline;">สมัครเรียน</a>
+  </div>
+</footer>

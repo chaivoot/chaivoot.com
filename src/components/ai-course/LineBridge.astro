@@ -1,0 +1,100 @@
+---
+interface Props {
+  lineUrl?: string;
+}
+const { lineUrl = '#' } = Astro.props;
+---
+<section id="line">
+  <div class="wrap">
+    <div class="section-head" style="text-align: center;">
+      <div class="eyebrow-mono">Line OA + Web App</div>
+      <h2>เชื่อม Web App เข้าหา Community ของคุณผ่าน Line</h2>
+    </div>
+    <div class="linebridge">
+      <div class="linebridge-side">
+        <div class="label">Line OA</div>
+        {/* Line OA mock */}
+        <div style="width: 230px; height: 420px; background: #5A6373; border-radius: 24px; padding: 6px; box-shadow: 0 8px 24px -8px rgba(20,20,20,0.18);">
+          <div style="width: 100%; height: 100%; background: #8696A8; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;">
+            <div style="padding: 10px 12px 6px; color: #fff; display: flex; align-items: center; gap: 8px;">
+              <div style="width: 30px; height: 30px; border-radius: 999px; background: #06C755; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px;">ร</div>
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: #fff;">ร้านชาวบ้าน</div>
+                <div style="font-size: 10px; color: rgba(255,255,255,0.7);">● ออนไลน์</div>
+              </div>
+            </div>
+            <div style="flex: 1; padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;">
+              <div style="background: #fff; padding: 8px 11px; border-radius: 12px; font-size: 11px; color: #2A2F2A; max-width: 78%; line-height: 1.4;">สวัสดีค่ะ ดูเมนูได้ที่ปุ่มข้างล่างเลยนะคะ 🍜</div>
+              <div style="background: #06C755; color: #fff; padding: 8px 11px; border-radius: 12px; font-size: 11px; align-self: flex-end; max-width: 78%;">ขอบคุณค่ะ</div>
+            </div>
+            <div style="background: #fff; border-top: 1px solid #E5E5E5;">
+              <div style="font-size: 9px; color: #999; text-align: center; padding: 4px 0; border-bottom: 1px solid #F0F0F0; font-family: var(--font-mono);">RICH MENU</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #E5E5E5;">
+                {[
+                  { i: '🌐', l: 'เปิดเว็บแอป', hi: true },
+                  { i: '📋', l: 'เมนู' },
+                  { i: '📞', l: 'ติดต่อ' },
+                  { i: '🎁', l: 'โปรโมชั่น' },
+                  { i: '⭐', l: 'สะสมแต้ม' },
+                  { i: '📍', l: 'ที่ตั้ง' },
+                ].map((c) => (
+                  <div style={`background: ${c.hi ? 'var(--accent-soft)' : '#fff'}; padding: 10px 6px 8px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;`}>
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-deep); display: flex; align-items: center; justify-content: center; font-size: 12px;">{c.i}</div>
+                    <div style={`font-size: 9.5px; color: ${c.hi ? 'var(--accent-deep)' : '#2A2F2A'}; font-weight: ${c.hi ? '600' : '500'}; line-height: 1.2;`}>{c.l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="title">Rich Menu ที่ลูกค้าคุ้นเคย</div>
+      </div>
+      <div class="arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="linebridge-side">
+        <div class="label">Your Web App</div>
+        {/* Web App mock */}
+        <div style="width: 220px; height: 420px; background: #1a1a1a; border-radius: 28px; padding: 7px; box-shadow: 0 8px 24px -8px rgba(20,20,20,0.18);">
+          <div style="width: 100%; height: 100%; background: #fff; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column;">
+            <div style="padding: 8px 12px; border-bottom: 1px solid #EFEFEF; display: flex; align-items: center; gap: 6px; background: #FAFAFA;">
+              <div style="width: 8px; height: 8px; border-radius: 999px; background: #FF5F57;"></div>
+              <div style="width: 8px; height: 8px; border-radius: 999px; background: #FEBC2E;"></div>
+              <div style="width: 8px; height: 8px; border-radius: 999px; background: #28C840;"></div>
+              <div style="flex: 1; background: #fff; border: 1px solid #EFEFEF; border-radius: 6px; padding: 3px 8px; font-size: 9px; color: #666; font-family: var(--font-mono);">ร้านของฉัน.com</div>
+            </div>
+            <div style="flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-size: 14px; font-weight: 600; color: #2A2F2A; line-height: 1.3;">สวัสดี, ป้าแหวว</div>
+              <div style="font-size: 10px; color: #888; line-height: 1.5;">ดูเมนู สั่งจอง หรือดูสะสมแต้ม</div>
+              <div style="background: #FBF7F2; border: 1px solid #F0E7DE; border-radius: 10px; padding: 10px; display: flex; gap: 8px; align-items: center;">
+                <div style="width: 28px; height: 28px; border-radius: 6px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">📋</div>
+                <div style="flex: 1;">
+                  <div style="font-size: 11px; font-weight: 500; color: #2A2F2A;">จองโต๊ะ</div>
+                  <div style="font-size: 9px; color: #888; margin-top: 1px;">ว่าง 4 โต๊ะ</div>
+                </div>
+              </div>
+              <div style="background: #FBF7F2; border: 1px solid #F0E7DE; border-radius: 10px; padding: 10px; display: flex; gap: 8px; align-items: center;">
+                <div style="width: 28px; height: 28px; border-radius: 6px; background: var(--accent-deep); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">⭐</div>
+                <div style="flex: 1;">
+                  <div style="font-size: 11px; font-weight: 500; color: #2A2F2A;">สะสมแต้ม</div>
+                  <div style="font-size: 9px; color: #888; margin-top: 1px;">คุณมี 240 แต้ม</div>
+                </div>
+              </div>
+              <div style="margin-top: auto; background: var(--accent); color: #fff; padding: 9px; border-radius: 8px; font-size: 11px; font-weight: 500; text-align: center;">ดูเมนูทั้งหมด →</div>
+            </div>
+          </div>
+        </div>
+        <div class="title">เว็บแอปของคุณเอง</div>
+      </div>
+    </div>
+    <p class="linebridge-copy">
+      ลูกค้าไม่ต้องจำ URL ไม่ต้องโหลดแอปใหม่ — แค่กดปุ่มในแชท Line ก็เข้าเว็บแอปของคุณได้ทันที ที่ลูกค้าคนไทยใช้ทุกวันอยู่แล้ว
+    </p>
+    <div class="linebridge-cta">
+      <a class="btn btn-line btn-lg" href={lineUrl} target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M18 6c-7.2 0-13 4.6-13 10.3 0 5.2 4.6 9.5 10.9 10.2.4 0 1 .3 1.1.6.1.3.1.7 0 1l-.2 1c-.1.3-.3 1.2 1.1.7 1.4-.6 7.4-4.4 10-7.5 1.8-2 2.7-4 2.7-6 0-5.7-5.8-10.3-13-10.3z" fill="currentColor"/></svg>
+        Add Line OA ลองเล่นเลย
+      </a>
+    </div>
+  </div>
+</section>
