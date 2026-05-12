@@ -25,9 +25,7 @@ export function TourModal({ caseData, onClose }: TourModalProps) {
 
   return (
     <div className="tour-modal" role="dialog" aria-modal="true" aria-label={`ตัวอย่าง: ${caseData.title}`}>
-      <div className="tour-modal-body">
-        <div className="tour-mockup-wrap">{prototype}</div>
-      </div>
+      <div className="tour-modal-body">{prototype}</div>
 
       <button type="button" className="tour-close-float" onClick={onClose} aria-label="ปิด">
         <span aria-hidden="true">×</span>

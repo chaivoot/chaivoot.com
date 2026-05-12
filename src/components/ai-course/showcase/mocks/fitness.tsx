@@ -3,21 +3,7 @@ import { useState, type ReactNode } from 'react';
 /* ============ Helpers ============ */
 
 function PhoneShell({ children }: { children: ReactNode }) {
-  return (
-    <div className="mock-phone">
-      <div className="mock-phone-screen">
-        <div className="mock-statusbar">
-          <span>9:41</span>
-          <span className="mock-statusbar-icons">
-            <span className="mock-sb-dot"></span>
-            <span className="mock-sb-dot"></span>
-            <span className="mock-sb-dot"></span>
-          </span>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
+  return <div className="mock-screen">{children}</div>;
 }
 
 function AppHeader({
@@ -117,7 +103,7 @@ const CLIENTS: Client[] = [
 function ListView({ onSelect }: { onSelect: (id: string) => void }) {
   return (
     <>
-      <AppHeader title="ลูกค้า" action={<span className="mock-icon-btn" aria-hidden="true">+</span>} />
+      <AppHeader title="ลูกค้า" />
 
       <div className="mock-kpi-row">
         <div className="mock-kpi">
