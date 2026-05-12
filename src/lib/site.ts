@@ -7,6 +7,9 @@ export const SITE = {
   authorBio: 'บันทึกของผู้ชายวัย 50 — ธุรกิจ Longevity และมอมแมม',
   copyrightLine: '© 2026 · บันทึกของชัยวุฒิ',
   lineUrl: 'https://line.me/ti/p/zcsfWQiMW4',
+  // LINE Official Account add-friend URL used on /ai-course. Kept separate
+  // from `lineUrl` (personal LINE) so course visitors land on the OA.
+  courseLineUrl: 'https://lin.ee/ozM0HAD',
   igUrl:   'https://www.instagram.com/chaivoot/',
   fbUrl:   'https://www.facebook.com/chaivoot',
   // Google Analytics 4 Measurement ID. '' disables GA.

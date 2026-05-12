@@ -17,14 +17,14 @@ const description =
   '1–2 วัน นั่งทำไปด้วยกัน คุยกับ AI สร้างเว็บแอปของธุรกิจคุณเองได้จริง — ไม่ต้องเขียนโค้ดสักบรรทัด';
 ---
 <CourseLayout title={title} description={description}>
-  <Hero lineUrl={SITE.lineUrl} />
+  <Hero lineUrl={SITE.courseLineUrl} />
   <StatsBar />
   <Problems />
   <Solution />
   <Demos />
-  <LineBridge lineUrl={SITE.lineUrl} />
+  <LineBridge lineUrl={SITE.courseLineUrl} />
   <Why />
   <Format />
   <Pricing />
-  <RegisterForm client:load lineUrl={SITE.lineUrl} />
+  <RegisterForm client:load lineUrl={SITE.courseLineUrl} />
 </CourseLayout>
