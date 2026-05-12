@@ -1,8 +1,12 @@
 // POST /ai-course/api/register
-// Accepts form submission, validates, inserts into course_registrations.
+// Accepts form submission, validates, inserts into course_registrations,
+// then fires a Resend email notification. Email is a soft signal —
+// Supabase is the authoritative record, so we never fail the response
+// because of an email error.
 
 import type { APIRoute } from 'astro';
 import { getSupabaseAdmin, SupabaseConfigError } from '../../../lib/supabase';
+import { notifyRegistration } from '../../../lib/email';
 
 export const prerender = false;
 
@@ -49,6 +53,20 @@ export const POST: APIRoute = async ({ request }) => {
     if (dbError) {
       console.error('[register] supabase insert failed:', dbError);
       return json({ ok: false, error: 'db_error', detail: dbError.message }, 500);
+    }
+
+    // Email notification — soft fail. The registration is already
+    // saved; a missing API key or Resend outage shouldn't bounce the
+    // user's form submission.
+    try {
+      const planForEmail: 'group' | 'private' = plan === 'private' ? 'private' : 'group';
+      await notifyRegistration({
+        name, phone, line_id, business, want,
+        plan: planForEmail,
+        source: 'landing',
+      });
+    } catch (emailErr) {
+      console.error('[register] email notification failed (non-fatal):', emailErr);
     }
   } catch (e) {
     if (e instanceof SupabaseConfigError) {
