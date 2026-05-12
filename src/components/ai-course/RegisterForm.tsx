@@ -1,21 +1,38 @@
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { Ico } from './icons';
 
 type Mode = 'form' | 'line';
+type Plan = 'group' | 'private';
 type FormData = { name: string; phone: string; lineId: string; biz: string; want: string };
 
 interface RegisterFormProps {
-  initialPlan?: 'group' | 'private';
+  initialPlan?: Plan;
   lineUrl?: string;
 }
 
 export default function RegisterForm({ initialPlan = 'group', lineUrl = '#' }: RegisterFormProps) {
   const [mode, setMode] = useState<Mode>('form');
+  const [plan, setPlan] = useState<Plan>(initialPlan);
   const [data, setData] = useState<FormData>({ name: '', phone: '', lineId: '', biz: '', want: '' });
   const [err, setErr] = useState<Record<string, string | undefined>>({});
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+
+  // Pricing buttons stash their plan in sessionStorage before the
+  // anchor scroll. Pick it up on mount and consume it so a refresh
+  // doesn't re-apply a stale choice.
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem('selectedPlan');
+      if (stored === 'private' || stored === 'group') {
+        setPlan(stored);
+        sessionStorage.removeItem('selectedPlan');
+      }
+    } catch {
+      /* sessionStorage disabled — fall through to default */
+    }
+  }, []);
 
   const onChange = (k: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setData({ ...data, [k]: e.target.value });
@@ -44,7 +61,7 @@ export default function RegisterForm({ initialPlan = 'group', lineUrl = '#' }: R
           line_id: data.lineId.trim() || undefined,
           business: data.biz.trim() || undefined,
           want: data.want.trim() || undefined,
-          plan: initialPlan,
+          plan,
         }),
       });
       const body = await res.json().catch(() => ({}));
@@ -133,6 +150,27 @@ export default function RegisterForm({ initialPlan = 'group', lineUrl = '#' }: R
                   </div>
                 ) : (
                   <form onSubmit={submit} noValidate>
+                    <div className="form-plan-pick" role="radiogroup" aria-label="แผนที่เลือก">
+                      <span className="form-plan-pick-label">จองแบบ:</span>
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={plan === 'group'}
+                        className={`form-plan-opt ${plan === 'group' ? 'form-plan-opt--on' : ''}`}
+                        onClick={() => setPlan('group')}
+                      >
+                        <span aria-hidden="true">📚</span> Group Class
+                      </button>
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={plan === 'private'}
+                        className={`form-plan-opt ${plan === 'private' ? 'form-plan-opt--on' : ''}`}
+                        onClick={() => setPlan('private')}
+                      >
+                        <span aria-hidden="true">👤</span> ส่วนตัว
+                      </button>
+                    </div>
                     <div className="form-row">
                       <label htmlFor="rf-name">ชื่อ</label>
                       <input id="rf-name" type="text" value={data.name} onChange={onChange('name')} placeholder="เช่น ลิซ่า" />
