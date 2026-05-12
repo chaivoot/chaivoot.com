@@ -1,8 +1,14 @@
 import type { ReactNode } from 'react';
 import { FitnessApp } from './mocks/fitness';
+import { PetApp } from './mocks/pet';
+import { AstroApp } from './mocks/astro';
+import { ElderApp } from './mocks/elder';
 
 const PROTOTYPE_MAP: Record<string, () => ReactNode> = {
   fitness: () => <FitnessApp />,
+  pet:     () => <PetApp />,
+  astro:   () => <AstroApp />,
+  elder:   () => <ElderApp />,
 };
 
 export function getPrototype(slug: string): ReactNode | null {
