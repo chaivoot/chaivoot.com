@@ -1,0 +1,33 @@
+---
+import CourseLayout from '../../layouts/CourseLayout.astro';
+import { ShowcaseGrid } from '../../components/ai-course/showcase/ShowcaseGrid';
+import { SITE } from '../../lib/site';
+---
+<CourseLayout
+  title="ตัวอย่าง Web App ที่คุณทำได้ — คอร์ส AI Web App"
+  description="4 ตัวอย่างจริงที่ผู้เรียนคอร์ส AI Web App ทำได้ใน 1–2 วัน — ระบบลูกค้าฟิตเนส, สุขภาพสัตว์เลี้ยง, บันทึกลูกค้าดูดวง, ดูแลผู้สูงอายุ"
+>
+  <section class="showcase-page">
+    <div class="wrap showcase-wrap">
+      <a class="showcase-back" href="/ai-course">
+        <span aria-hidden="true">←</span> กลับไปหน้าคอร์ส
+      </a>
+
+      <header class="showcase-head">
+        <h1>ตัวอย่าง Web App ที่คุณทำได้</h1>
+        <p class="showcase-sub">4 ตัวอย่างจริง — ของแบบนี้ผู้เรียนทำเองได้ใน 1–2 วัน</p>
+      </header>
+
+      <ShowcaseGrid client:load registerHref="/ai-course#pricing" lineUrl={SITE.courseLineUrl} />
+
+      <section class="showcase-cta">
+        <h2>อยากทำของแบบนี้ด้วยตัวเอง?</h2>
+        <p>คอร์ส 2 วัน จับมือทำ — ออกจากห้องด้วย web app ของธุรกิจคุณ</p>
+        <div class="showcase-cta-row">
+          <a class="btn btn-primary btn-lg" href="/ai-course#pricing">ดูคอร์ส &amp; สมัครเรียน</a>
+          <a class="btn btn-ghost" href={SITE.courseLineUrl} target="_blank" rel="noopener">ทักครูถามได้</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</CourseLayout>
