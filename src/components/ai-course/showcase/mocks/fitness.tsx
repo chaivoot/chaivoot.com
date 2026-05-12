@@ -3,7 +3,18 @@ import { useState, type ReactNode } from 'react';
 /* ============ Helpers ============ */
 
 function PhoneShell({ children }: { children: ReactNode }) {
-  return <div className="mock-screen">{children}</div>;
+  return (
+    <div className="mock-screen">
+      <div className="mock-brand-bar">
+        <span className="mock-brand-logo" aria-hidden="true">F</span>
+        <span className="mock-brand-text">
+          <span className="mock-brand-name">FitNote</span>
+          <span className="mock-brand-sub">by โค้ชแนน</span>
+        </span>
+      </div>
+      {children}
+    </div>
+  );
 }
 
 function AppHeader({
