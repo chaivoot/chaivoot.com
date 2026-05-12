@@ -39,7 +39,7 @@ const plans = [
             <div class="plan-save">ประหยัด {p.save}</div>
           </div>
           <p class="plan-desc">{p.desc}</p>
-          <a class="btn btn-primary btn-xl plan-cta" href="#register">
+          <a class="btn btn-primary btn-xl plan-cta" href="#register" data-plan={p.kind}>
             {p.cta}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
@@ -51,3 +51,18 @@ const plans = [
     </div>
   </div>
 </section>
+
+<script>
+  // Plan-aware CTA: stash the chosen plan so RegisterForm picks it up
+  // on mount. sessionStorage clears when the tab closes — never leaks
+  // between sessions. RegisterForm consumes (removes) the key after
+  // reading so a fresh visit to /ai-course#register defaults to group.
+  document.querySelectorAll<HTMLAnchorElement>('.plan-cta[data-plan]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const plan = el.dataset.plan;
+      if (plan === 'group' || plan === 'private') {
+        try { sessionStorage.setItem('selectedPlan', plan); } catch {}
+      }
+    });
+  });
+</script>
