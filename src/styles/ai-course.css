@@ -714,70 +714,72 @@ html[data-accent="pillar"] {
   to   { opacity: 1; }
 }
 
-.ai-course-page .tour-modal-head {
-  flex: 0 0 auto;
-  display: grid; grid-template-columns: 44px 1fr 44px; align-items: center;
-  padding: var(--s-2) var(--s-3);
-  border-bottom: 1px solid var(--border-faint);
-  background: var(--bg);
-}
-.ai-course-page .tour-close {
-  min-width: 44px; min-height: 44px;
-  background: transparent; border: none; cursor: pointer;
-  font-size: 28px; line-height: 1; color: var(--fg-muted);
-  padding: 0; font-family: inherit;
-  -webkit-tap-highlight-color: transparent;
-}
-.ai-course-page .tour-close:hover { color: var(--fg); }
-.ai-course-page .tour-modal-title {
-  font-size: 14px; font-weight: 500; color: var(--fg);
-  text-align: center; letter-spacing: -0.01em;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.ai-course-page .tour-modal-spacer { width: 44px; }
-
 .ai-course-page .tour-modal-body {
   flex: 1 1 auto; min-height: 0;
+  position: relative;
   display: flex; align-items: center; justify-content: center;
-  padding: var(--s-4) var(--s-3);
+  padding: 12px 12px 72px;
 }
 .ai-course-page .tour-mockup-wrap {
-  width: 100%; max-width: 340px;
-  height: 100%;
+  width: 100%; height: 100%;
   display: flex; align-items: center; justify-content: center;
 }
 
-.ai-course-page .tour-modal-foot {
-  flex: 0 0 auto;
-  display: flex; gap: var(--s-3);
-  padding: var(--s-3) var(--s-4);
-  padding-bottom: max(var(--s-3), env(safe-area-inset-bottom));
-  border-top: 1px solid var(--border-faint);
-  background: var(--bg);
+.ai-course-page .tour-close-float {
+  position: absolute;
+  top: 10px; right: 10px;
+  z-index: 10;
+  width: 38px; height: 38px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-faint);
+  color: var(--fg-muted);
+  font-size: 22px; line-height: 1; font-family: inherit;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 0 2px 0;
+  box-shadow: 0 2px 8px rgba(20,20,20,0.06);
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--dur-quick) var(--ease), background var(--dur-quick) var(--ease);
 }
-.ai-course-page .tour-nav {
-  flex: 1 1 0; min-height: 52px;
-  border: none; border-radius: 12px;
-  font-size: 15px; font-weight: 600; font-family: inherit;
-  cursor: pointer; text-decoration: none;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  transition: background var(--dur-quick) var(--ease);
+.ai-course-page .tour-close-float:hover {
+  color: var(--fg); background: #fff;
 }
-.ai-course-page .tour-nav--cta {
+
+.ai-course-page .tour-cta-float {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 10;
   background: var(--accent); color: #fff;
+  padding: 12px 22px; border-radius: 999px;
+  font-size: 14px; font-weight: 600; font-family: inherit;
+  text-decoration: none; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 6px;
+  box-shadow: 0 8px 24px -4px rgba(110,63,42,0.4), 0 2px 4px rgba(110,63,42,0.2);
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
-.ai-course-page .tour-nav--cta:hover { background: var(--accent-deep); }
+.ai-course-page .tour-cta-float:hover {
+  background: var(--accent-deep);
+  transform: translateX(-50%) translateY(-1px);
+}
+.ai-course-page .tour-cta-float:active {
+  transform: translateX(-50%) translateY(0);
+}
 
 /* ============================================================ */
 /* MOCK PHONE + APP UI (interactive prototype inside modal)     */
 /* ============================================================ */
 
 .ai-course-page .mock-phone {
-  width: auto; max-width: 320px;
-  height: min(calc(100vh - 200px), 640px);
+  height: 100%;
+  max-height: min(calc(100vh - 96px), calc((100vw - 32px) * 2));
   aspect-ratio: 9 / 18;
-  background: #1a1a1a; border-radius: 36px; padding: 8px;
-  box-shadow: 0 12px 32px -8px rgba(20,20,20,0.22), 0 2px 6px rgba(20,20,20,0.06);
+  max-width: calc(100vw - 32px);
+  background: #1a1a1a; border-radius: 38px; padding: 8px;
+  box-shadow: 0 14px 36px -8px rgba(20,20,20,0.24), 0 2px 6px rgba(20,20,20,0.08);
   flex-shrink: 0;
 }
 .ai-course-page .mock-phone-screen {
@@ -832,7 +834,7 @@ html[data-accent="pillar"] {
 .ai-course-page .mock-scroll {
   flex: 1 1 auto; min-height: 0; overflow-y: auto;
   display: flex; flex-direction: column; gap: 10px;
-  padding: 10px 0;
+  padding: 10px 0 16px;
   -webkit-overflow-scrolling: touch;
 }
 .ai-course-page .mock-scroll::-webkit-scrollbar { width: 0; }

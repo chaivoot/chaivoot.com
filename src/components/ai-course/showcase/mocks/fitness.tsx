@@ -402,7 +402,7 @@ const TABS: { id: ClientTab; label: string; icon: string }[] = [
   { id: 'profile',  label: 'โปรไฟล์',   icon: '👤' },
   { id: 'measure',  label: 'วัด',        icon: '📐' },
   { id: 'goal',     label: 'เป้า',       icon: '🎯' },
-  { id: 'progress', label: 'ความคืบหน้า', icon: '📈' },
+  { id: 'progress', label: 'คืบหน้า', icon: '📈' },
 ];
 
 export function FitnessApp() {
