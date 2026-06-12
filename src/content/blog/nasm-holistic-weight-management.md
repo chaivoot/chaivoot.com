@@ -10,7 +10,7 @@ tags: ["ลดน้ำหนัก", "longevity", "bodykey", "ฮอร์โ�
 
 วันนี้กดเรียนจบไปอีกใบครับ — **Holistic Weight Management** ของ NASM (National Academy of Sports Medicine) บน Coursera เป็น specialization ที่รวม 5 คอร์สเข้าด้วยกัน:
 
-![NASM Holistic Weight Management certificate](/images/nasm-holistic-weight-management.png)
+![NASM Holistic Weight Management certificate](/nasm-holistic-weight-management.png)
 
 
 - Nutrition and Medical Weight Loss
