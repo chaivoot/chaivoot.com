@@ -2,6 +2,7 @@
 title: "เครียดลงลำไส้ กับโรคลำไส้แปรปรวน (IBS): 4 ปีที่ผมดูแลแจน และวิธีดูแล gut health"
 date: 2026-08-22
 pillar: amway
+alsoIn: ["longevity"]
 format: article
 excerpt: "เครียดลงลำไส้จนกลายเป็นลำไส้แปรปรวน (IBS) เป็นยังไง? เล่าจากประสบการณ์ 4 ปีดูแลแจน พร้อมวิธีดูแล gut health ด้วย probiotics prebiotics postbiotics อ้างอิงจากสถาบันแพทย์ในไทย"
 read: 6

@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 const pillarId = Astro.params.pillar as PillarId;
 const p = PILLARS[pillarId];
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft && data.pillar === pillarId))
+const posts = (await getCollection('blog', ({ data }) => !data.draft && (data.pillar === pillarId || data.alsoIn?.includes(pillarId))))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 <BaseLayout title={`${p.name} — chaivoot`} description={p.long}>
