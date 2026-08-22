@@ -28,6 +28,11 @@ const person = {
   name: SITE.authorName,
   url: siteUrl,
   description: SITE.authorBio,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: SITE.addressLocality,
+    addressCountry: SITE.addressCountry,
+  },
   sameAs: [SITE.fbUrl, SITE.igUrl],
 };
 const website = {
