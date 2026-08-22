@@ -41,7 +41,8 @@ const { posts, fixedPillar } = Astro.props;
         p.classList.toggle('on', p === btn);
       });
       feed.querySelectorAll<HTMLElement>('.post-row').forEach((row) => {
-        const show = filter === 'all' || row.dataset.pillar === filter;
+        const pillars = (row.dataset.pillar || '').split(' ');
+        const show = filter === 'all' || pillars.includes(filter);
         row.style.display = show ? '' : 'none';
       });
     });

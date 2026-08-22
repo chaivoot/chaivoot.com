@@ -15,7 +15,7 @@ const badgeStyle = isNote
   : `background:#F0EDE7;color:#6B6B6B`;
 const dotStyle = `background:${p.ink}`;
 ---
-<article class:list={['post-row', { note: isNote }]} data-pillar={post.data.pillar}>
+<article class:list={['post-row', { note: isNote }]} data-pillar={[post.data.pillar, ...(post.data.alsoIn ?? [])].join(' ')}>
   <div class="post-meta">
     <span class="badge" style={badgeStyle}>{isNote ? 'บันทึก' : 'บทความ'}</span>
     <span class="meta-dot" style={dotStyle}></span>
