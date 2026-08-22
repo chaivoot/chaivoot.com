@@ -8,8 +8,41 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  schema?: Record<string, any>[];
 }
-const { title, description = SITE.description } = Astro.props;
+const { title, description = SITE.description, image, type = 'website', schema = [] } = Astro.props;
+
+const siteUrl = 'https://chaivoot.com';
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? siteUrl).href;
+const ogImage = new URL(image ?? '/chaivoot-hero.jpg', Astro.site ?? siteUrl).href;
+
+// schema.org structured data. Person is the site's identity; `sameAs`
+// links it to the owner's social profiles so search engines treat the
+// site and those accounts as one entity. Pages can pass extra nodes
+// (e.g. an Article) via the `schema` prop; they join the same @graph.
+const person = {
+  '@type': 'Person',
+  '@id': `${siteUrl}/#person`,
+  name: SITE.authorName,
+  url: siteUrl,
+  description: SITE.authorBio,
+  sameAs: [SITE.fbUrl, SITE.igUrl],
+};
+const website = {
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  url: siteUrl,
+  name: SITE.title,
+  description: SITE.description,
+  inLanguage: 'th',
+  publisher: { '@id': `${siteUrl}/#person` },
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [person, website, ...schema],
+};
 ---
 <!doctype html>
 <html lang="th">
@@ -19,8 +52,18 @@ const { title, description = SITE.description } = Astro.props;
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  <meta property="og:type" content={type} />
+  <meta property="og:site_name" content="chaivoot" />
+  <meta property="og:url" content={canonicalURL} />
   <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
   {SITE.gscVerify && (
     <meta name="google-site-verification" content={SITE.gscVerify} />
   )}
