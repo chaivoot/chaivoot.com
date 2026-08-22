@@ -13,6 +13,10 @@ export const SITE = {
   email:   'chaivoot@gmail.com',
   igUrl:   'https://www.instagram.com/chaivoot/',
   fbUrl:   'https://www.facebook.com/chaivoot',
+  // Approximate, city-level location for schema.org Person (no exact
+  // street address) — helps search engines disambiguate the entity.
+  addressLocality: 'กรุงเทพมหานคร',
+  addressCountry:  'TH',
   // Google Analytics 4 Measurement ID. '' disables GA.
   gaId:    'G-JC562PTP4L',
   // Google Search Console verification token (the value of the
