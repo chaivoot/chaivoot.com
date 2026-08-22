@@ -24,8 +24,25 @@ const related = all
   .filter((r) => r.slug !== post.slug && r.data.pillar === post.data.pillar)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 2);
+
+// Article structured data for this post. author/publisher point back to
+// the site-wide Person node (@id) defined in BaseLayout.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://chaivoot.com').href;
+const articleSchema = {
+  '@type': 'Article',
+  '@id': `${canonical}#article`,
+  headline: post.data.title,
+  description: post.data.excerpt,
+  datePublished: post.data.date.toISOString(),
+  dateModified: post.data.date.toISOString(),
+  inLanguage: 'th',
+  mainEntityOfPage: canonical,
+  author: { '@id': 'https://chaivoot.com/#person' },
+  publisher: { '@id': 'https://chaivoot.com/#person' },
+  ...(post.data.tags?.length ? { keywords: post.data.tags.join(', ') } : {}),
+};
 ---
-<BaseLayout title={`${post.data.title} — chaivoot`} description={post.data.excerpt}>
+<BaseLayout title={`${post.data.title} — chaivoot`} description={post.data.excerpt} type="article" schema={[articleSchema]}>
   <a class="back-link" href="/">← กลับไปหน้าบันทึก</a>
   <article class="post-detail fade-in">
     <div class="post-meta">
