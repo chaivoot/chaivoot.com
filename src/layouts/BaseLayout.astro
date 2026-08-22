@@ -2,6 +2,7 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../lib/site';
+import { PILLARS, PILLAR_ORDER } from '../lib/pillars';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
@@ -33,6 +34,9 @@ const person = {
     addressLocality: SITE.addressLocality,
     addressCountry: SITE.addressCountry,
   },
+  // Areas of expertise, sourced from the site's pillars — an E-E-A-T
+  // signal describing what this person writes about.
+  knowsAbout: PILLAR_ORDER.map((id) => PILLARS[id].name),
   sameAs: [SITE.fbUrl, SITE.igUrl, SITE.googleMapsUrl],
 };
 const website = {
