@@ -13,6 +13,9 @@ export const SITE = {
   email:   'chaivoot@gmail.com',
   igUrl:   'https://www.instagram.com/chaivoot/',
   fbUrl:   'https://www.facebook.com/chaivoot',
+  // Google Maps Local Guide contributor profile (permanent Google short
+  // link). Added to schema.org `sameAs`.
+  googleMapsUrl: 'https://maps.app.goo.gl/BzLoBBvxahDDGCZj7',
   // Approximate, city-level location for schema.org Person (no exact
   // street address) — helps search engines disambiguate the entity.
   addressLocality: 'กรุงเทพมหานคร',
