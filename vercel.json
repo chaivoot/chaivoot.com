@@ -1,6 +1,13 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/boardgame", "destination": "https://boardgame-five-psi.vercel.app/boardgame" },
-    { "source": "/boardgame/:path*", "destination": "https://boardgame-five-psi.vercel.app/boardgame/:path*" }
+    {
+      "source": "/boardgame",
+      "destination": "https://boardgame-five-psi.vercel.app/boardgame"
+    },
+    {
+      "source": "/boardgame/:match*",
+      "destination": "https://boardgame-five-psi.vercel.app/boardgame/:match*"
+    }
   ]
 }
