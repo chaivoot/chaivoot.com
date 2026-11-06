@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/boardgame", "destination": "https://boardgame-five-psi.vercel.app/boardgame" },
-    { "source": "/boardgame/:path*", "destination": "https://boardgame-five-psi.vercel.app/boardgame/:path*" }
-  ]
-}
