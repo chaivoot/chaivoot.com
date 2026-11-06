@@ -29,7 +29,7 @@ Supabase table, rotating secrets, changing DNS).
 
 ## Stack
 
-Astro 4 hybrid → Vercel serverless (nodejs20.x). Supabase (`fundamental`
+Astro 4 hybrid → Vercel serverless (nodejs24.x). Supabase (`fundamental`
 project) for the `/ai-course` registration form. Static everywhere else.
 
 ## Env vars
