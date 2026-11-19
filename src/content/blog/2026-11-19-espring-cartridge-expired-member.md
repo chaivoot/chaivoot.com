@@ -9,7 +9,7 @@ read: 4
 tags: ["eSpring", "Amway", "ไส้กรอง", "สมาชิกหมดอายุ"]
 ---
 
-<p><a class="btn btn-outline" href="https://th.ashare.me/cceZ5qzx" target="_blank" rel="noopener">→ สั่งซื้อไส้กรองเครื่องกรองน้ำ eSpring</a></p>
+<p><a class="btn btn-ig" href="https://th.ashare.me/cceZ5qzx" target="_blank" rel="noopener">สั่งซื้อไส้กรองเครื่องกรองน้ำ eSpring →</a><br><small style="color:var(--fg-muted)">มี 2 รุ่นให้เลือก (e3 รุ่นใหม่ / รุ่นเดิม) ตามรุ่นเครื่อง</small></p>
 
 **สรุปสั้นๆ ก่อน:** ยังเปลี่ยนไส้กรองได้ครับ ไม่ต้องกังวลว่าเครื่องจะกลายเป็นที่ทับกระดาษ — แต่ต้องเลือกทางที่ถูกต้องตามระเบียบ ไม่ใช่วิธี "ยืม account สมาชิกคนอื่นสั่ง" ซึ่งผิดกฎ
 
